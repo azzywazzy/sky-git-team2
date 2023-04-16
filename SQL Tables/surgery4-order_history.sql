@@ -5,7 +5,7 @@ CREATE TABLE order_history(
     product_id smallint not null,
     cus_id smallint not null,
     quantity_ordered smallint not null,
-    order_date date not null,
+    order_date date,
     collected smallint,
     collection_date date,    
 	foreign key (product_id) references product(product_id) on delete cascade,
