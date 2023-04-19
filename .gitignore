@@ -128,6 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+
+
 <<<<<<< HEAD
 
 **/.idea
@@ -138,3 +140,6 @@ venv/
 =======
 Our_Surgery/.idea
 >>>>>>> e38a613f0c54d0254279b0d696520411a3bb8a24
+
+
+Our_Surgery/application/dbScript.py

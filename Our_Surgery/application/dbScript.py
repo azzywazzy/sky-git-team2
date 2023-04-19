@@ -8,10 +8,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 user = 'root'
-password = ''
+password = 'password'
 host = '127.0.0.1'
 port = 3306
-database = 'Surgery'
+database = 'surgery'
 
 
 def get_connection():
