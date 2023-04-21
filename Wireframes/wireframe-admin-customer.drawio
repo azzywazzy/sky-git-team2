@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-04-21T15:06:07.551Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="fnkjjeF4rrY97iruSTx3" version="21.2.1" type="device">
+<mxfile host="app.diagrams.net" modified="2023-04-21T19:21:55.304Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="LJMQZ2Xglfb4JQYUWJRd" version="21.2.1" type="device">
   <diagram name="Page-1" id="03018318-947c-dd8e-b7a3-06fadd420f32">
-    <mxGraphModel dx="1034" dy="430" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1034" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -10,17 +10,11 @@
         <mxCell id="677b7b8949515195-8" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;align=center;comic=1;" parent="1" vertex="1">
           <mxGeometry x="30" y="30" width="140" height="700" as="geometry" />
         </mxCell>
-        <mxCell id="677b7b8949515195-15" value="Reviews/testimonials" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;align=center;verticalAlign=top;spacing=10;comic=1;" parent="1" vertex="1">
-          <mxGeometry x="180" y="447" width="390" height="180" as="geometry" />
-        </mxCell>
         <mxCell id="677b7b8949515195-26" value="&lt;div&gt;Opening Hours&lt;/div&gt;&lt;div&gt;Phone Number&lt;/div&gt;&lt;div&gt;Map&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;align=center;comic=1;" parent="1" vertex="1">
           <mxGeometry x="820" y="447" width="230" height="180" as="geometry" />
         </mxCell>
         <mxCell id="qz_svecnsdqs3by7-r_0-2" value="Vet Clinic Name" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=28;align=center;comic=1;" parent="1" vertex="1">
           <mxGeometry x="190" y="40" width="680" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="qz_svecnsdqs3by7-r_0-7" value="Picture of us as vets" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;align=center;comic=1;" parent="1" vertex="1">
-          <mxGeometry x="580" y="447" width="230" height="180" as="geometry" />
         </mxCell>
         <mxCell id="qz_svecnsdqs3by7-r_0-8" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=28;align=center;comic=1;" parent="1" vertex="1">
           <mxGeometry x="180" y="640" width="870" height="60" as="geometry" />
@@ -709,7 +703,7 @@
         <mxCell id="YpGhRkBLHknayNMrXKQS-424" value="Sort (or better still filter) by any of the headings" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;" parent="1" vertex="1">
           <mxGeometry x="150" y="125.01" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="kg68NQ-i2UF1LJ9AUR5V-1" value="click on email to open email system?" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;" vertex="1" parent="1">
+        <mxCell id="kg68NQ-i2UF1LJ9AUR5V-1" value="click on email to open email system?" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;" parent="1" vertex="1">
           <mxGeometry x="410" y="140" width="120" height="80" as="geometry" />
         </mxCell>
       </root>
