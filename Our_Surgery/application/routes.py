@@ -1,11 +1,14 @@
-from flask import render_template, jsonify, json, request
+from flask import render_template, jsonify, json, request, url_for, redirect, flash
+from application import app, service, db, bcrypt
+from application.forms import RegistrationForm, LoginForm
+from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
 from application.models.patient import Patient
 from application.models.order_history import OrderHistory
 from application.models.product import Product
 from application.models.vet_personnel import VetPersonnel
-
-from application import app, service
+from application.models.credential import Credential
+# from application import app, service
 
 @app.route('/admin/customers', methods=['GET'])
 def all_customers():
@@ -32,7 +35,33 @@ def all_patients():
     if len(patients) == 0:
         error = "There are no patients to display"
     return render_template('admin-patients.html', patients=patients, message=error)
+
     # return jsonify(patients)
+
+    # return jsonify(albums)
+
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        credential = Credential(email=form.cus_email.data, hash_password=hashed_password, user_type=0)
+        customer = Customer(cus_first_name=form.cus_first_name.data, cus_last_name=form.cus_last_name.data, cus_email=form.cus_email.data, address=form.address.data, phone=form.phone.data, cus_status=1 )
+        db.session.add(credential)
+        db.session.add(customer)
+        db.session.commit()
+        flash('Your account has been created! You are now able to log in', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+    return render_template('login.html', title='Login', form=form)
+
 
 @app.route('/admin/products', methods=['GET'])
 def all_products():
