@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-04-21T18:25:32.417Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="8kWCeWSDx36g1f2SdpOR" version="21.2.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-04-22T10:29:44.973Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="6xQFcDd6_eAu_LT1o2iK" version="21.2.1" type="github">
   <diagram name="Page-1" id="03018318-947c-dd8e-b7a3-06fadd420f32">
     <mxGraphModel dx="1050" dy="541" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -65,7 +65,7 @@
           <mxGeometry x="50" y="1500" width="110" height="20" as="geometry" />
         </mxCell>
         <mxCell id="4tb6mHXP0iQ0pXI3ua6Z-25" value="&lt;b&gt;Help and Advice&lt;/b&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=28;align=center;comic=1;" parent="1" vertex="1">
-          <mxGeometry x="480" y="170" width="310" height="80" as="geometry" />
+          <mxGeometry x="270" y="170" width="310" height="80" as="geometry" />
         </mxCell>
         <mxCell id="4tb6mHXP0iQ0pXI3ua6Z-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -114,6 +114,9 @@
         </mxCell>
         <mxCell id="jEtieUgvG5vlW2YqB8ll-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="jEtieUgvG5vlW2YqB8ll-17" target="jEtieUgvG5vlW2YqB8ll-17" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m3AEEZloaZ2SiTxXX1Ap-4" value="Search bar... type keywords here" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="680" y="210" width="380" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
