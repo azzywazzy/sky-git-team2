@@ -16,3 +16,6 @@ def get_all_patients():
 def get_all_orders():
     return db.session.query(OrderHistory).all()
 
+def get_all_products():
+    return db.session.query(Product).all()
+
