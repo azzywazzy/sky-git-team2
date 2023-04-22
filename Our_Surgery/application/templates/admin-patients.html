@@ -7,7 +7,10 @@
 <body>
 <div>
 {% for pat in patients %}
-   <p>{{pat.pat_id}} {{pat.cus_id}} {{pat.pat_name}} {{pat.species}} {{pat.breed}} {{pat.sex}} {{pat.date_of_birth}} {{pat.weight}} {{pat.chip_number}} {{pat.neutered_status}} {{pat.has_insurance}}</p>
+   <p>{{pat.pat_id}} {{pat.cus_id}} {{pat.pat_name}} {{pat.species}} {{pat.breed}}
+       {{pat.sex}} {{pat.date_of_birth}} {{pat.weight}} {{pat.chip_number}}
+       {% if pat.neutered_status == 1 %} Y {% elif pat.neutered_status == 0 %} N {% endif %}
+       {% if pat.has_insurance == 1 %} Y {% elif pat.has_insurance == 0 %} N {% endif %}</p>
 
 {% endfor %}
     <br>
