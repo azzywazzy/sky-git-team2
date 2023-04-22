@@ -14,7 +14,16 @@ def all_customers():
     if len(customers) == 0:
         error = "There are no customers to display"
     return render_template('admin-customers.html', customers=customers, message=error)
-    # return jsonify(albums)
+    # return jsonify(customers)
+
+@app.route('/admin/orders', methods=['GET'])
+def all_orders():
+    error = ""
+    orders = service.get_all_orders()
+    if len(orders) == 0:
+        error = "There are no orders to display"
+    return render_template('admin-orders.html', orders=orders, message=error)
+    # return jsonify(orders)
 
 @app.route('/admin/patients', methods=['GET'])
 def all_patients():

@@ -9,5 +9,10 @@ from application import db
 def get_all_customers():
     return db.session.query(Customer).all()
 
+
 def get_all_patients():
     return db.session.query(Patient).all()
+
+def get_all_orders():
+    return db.session.query(OrderHistory).all()
+
