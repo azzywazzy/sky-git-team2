@@ -3,3 +3,4 @@ flask-sqlalchemy
 pymysql
 WTForms~=2.3.3
 SQLAlchemy~=2.0.9
+bcrypt

@@ -32,6 +32,13 @@ def all_patients():
     if len(patients) == 0:
         error = "There are no patients to display"
     return render_template('admin-patients.html', patients=patients, message=error)
-    # return jsonify(albums)
+    # return jsonify(patients)
 
-
+@app.route('/admin/products', methods=['GET'])
+def all_products():
+    error = ""
+    products = service.get_all_products()
+    if len(products) == 0:
+        error = "There are no products to display"
+    return render_template('admin-products.html', products=products, message=error)
+    # return jsonify(products)
