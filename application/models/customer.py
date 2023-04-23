@@ -1,10 +1,14 @@
-from application import db
+from application import db, login_manager
 from sqlalchemy.orm import Mapped
 from typing import List
 from sqlalchemy.orm import relationship
+from flask_login import UserMixin
+@login_manager.user_loader
+def load_user(cus_id):
+    return Customer.query.get(int(cus_id))
 
 
-class Customer(db.Model):
+class Customer(db.Model, UserMixin):
     cus_id = db.Column(db.Integer, primary_key=True, nullable=False)
     cus_first_name = db.Column(db.String(50), nullable=False)
     cus_last_name = db.Column(db.String(50), nullable=False)

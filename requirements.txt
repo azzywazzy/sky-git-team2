@@ -10,4 +10,4 @@ flask-wtf
 flask_bcrypt
 wtforms[email]
 cryptography
-
+flask_login

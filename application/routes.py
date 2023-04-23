@@ -1,5 +1,5 @@
 from flask import render_template, jsonify, json, request, url_for, redirect, flash
-from application import app, service, db, bcrypt
+from application import app, service, db, bcrypt, login_manager
 from application.forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
