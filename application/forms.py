@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, DateField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional
 from application.models.customer import Customer
 
 
@@ -32,3 +32,16 @@ class LoginForm(FlaskForm):
     hash_password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Log In')
+
+
+class PatientRegistrationForm(FlaskForm):
+    pat_name = StringField('Pet Name', validators=[DataRequired(), Length(min=1, max=20)])
+    species = StringField('Species', validators=[DataRequired(), Length(min=1, max=20)])
+    breed = StringField('Species', validators=[Optional()])
+    sex = StringField('Sex', validators=[Optional()])
+    date_of_birth = DateField('Date of Birth', format='%d/%m/%Y', validators=[Optional()])
+    weight = IntegerField('Weight in Grammes', validators=[Optional()])
+    chip_num = StringField('Chip number', validators=[Optional()])
+    neutered_status = BooleanField('Neutered Status', validators=[Optional()])
+    has_insurance = BooleanField('Has Insurance', validators=[Optional()])
+    submit = SubmitField('Add Pet')
