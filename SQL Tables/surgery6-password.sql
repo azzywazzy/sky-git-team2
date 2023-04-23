@@ -1,7 +1,7 @@
-use surgery;
+use Surgery;
 
 CREATE TABLE credential(
-user_id smallint not null primary key auto_increment,
+id smallint not null primary key auto_increment,
 email varchar(50) not null,
 user_type tinyint not null, 
 hash_password text not null
@@ -13,5 +13,5 @@ insert into credential values (3, "MRai@vets.com", "1", "ldskjf;l89sdfskhj");
 insert into credential values (4, "fayequinn@email.com", "0", ";lksaf;lakopim;gd;l");
 
 
-
+drop table credential;
 
