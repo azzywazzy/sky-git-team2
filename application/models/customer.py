@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 
 
 
-class Customer(db.Model, UserMixin):
+class Customer(db.Model):
     cus_id = db.Column(db.Integer, primary_key=True, nullable=False)
     cus_first_name = db.Column(db.String(50), nullable=False)
     cus_last_name = db.Column(db.String(50), nullable=False)

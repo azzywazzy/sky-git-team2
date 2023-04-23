@@ -59,7 +59,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = Credential.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(application.models.credential.hash_password, form.password.data):
+        if user and bcrypt.check_password_hash(user.hash_password, form.hash_password.data):
             login_user(user, remember=form.remember.data)
             return redirect(url_for('admin/patients'))
         else:
