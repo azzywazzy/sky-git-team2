@@ -4,8 +4,8 @@ from application.models.order_history import OrderHistory
 from application.models.product import Product
 from application.models.vet_personnel import VetPersonnel
 
-from application import db
-
+from application import db, login_manager
+from flask_login import UserMixin
 def get_all_customers():
     return db.session.query(Customer).all()
 
@@ -19,3 +19,6 @@ def get_all_orders():
 def get_all_products():
     return db.session.query(Product).all()
 
+@login_manager.user_loader
+def load_user(cus_id):
+    return Customer.query.get(int(cus_id))

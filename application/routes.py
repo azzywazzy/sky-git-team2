@@ -9,6 +9,7 @@ from application.models.product import Product
 from application.models.vet_personnel import VetPersonnel
 from application.models.credential import Credential
 # from application import app, service
+from flask_login import login_user
 
 @app.route('/admin/customers', methods=['GET'])
 def all_customers():
@@ -55,6 +56,17 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 @app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = Customer.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(application.models.credential.hash_password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            return redirect(url_for('admin/patients'))
+        else:
+            flash('Login Unsuccessful. Please check email and password','dangerous')
+    return render_template('login.html', title='Login', form=form)
+
 # def login():
 #     form = LoginForm()
 #     if form.validate_on_submit():
@@ -62,17 +74,18 @@ def register():
 #             flash('You have been logged in!', 'success')
 #     return render_template('login.html', title='Login', form=form)
 
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = Credential.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            # login_user(user, remember=form.remember.data)
-            # next_page = request.args.get('next')
-            return redirect(url_for('admin/customers'))
-        else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+
+# def login():
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         user = Credential.query.filter_by(email=form.email.data).first()
+#         if user and bcrypt.check_password_hash(user.password, form.password.data):
+#             # login_user(user, remember=form.remember.data)
+#             # next_page = request.args.get('next')
+#             return redirect(url_for('admin/customers'))
+#         else:
+#             flash('Login Unsuccessful. Please check email and password', 'danger')
+#     return render_template('login.html', title='Login', form=form)
 
 
 @app.route('/admin/products', methods=['GET'])
