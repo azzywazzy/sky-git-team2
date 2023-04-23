@@ -28,8 +28,8 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email address is already registered')
 
 class LoginForm(FlaskForm):
-    cus_email = StringField('Email',
-                            validators=[DataRequired(), Email()])
+    email = StringField('Email',
+                             validators=[DataRequired(), Email()])
     password = PasswordField('Password',
                              validators=[DataRequired])
     remember = BooleanField('Remember Me')

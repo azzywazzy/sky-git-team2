@@ -8,7 +8,6 @@ from application.models.order_history import OrderHistory
 from application.models.product import Product
 from application.models.vet_personnel import VetPersonnel
 from application.models.credential import Credential
-# from application import app, service
 from flask_login import login_user
 
 @app.route('/admin/customers', methods=['GET'])
@@ -59,7 +58,7 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = Customer.query.filter_by(email=form.email.data).first()
+        user = Credential.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(application.models.credential.hash_password, form.password.data):
             login_user(user, remember=form.remember.data)
             return redirect(url_for('admin/patients'))
