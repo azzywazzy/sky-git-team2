@@ -5,11 +5,11 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 
-user = 'root'
+user = 'workbench'
 password = 'password'
 host = '127.0.0.1'
 port = 3306
-database = 'surgery'
+database = 'Surgery'
 
 app = Flask(__name__)
 

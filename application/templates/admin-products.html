@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Products</title>
-</head>
-<body>
-<div>
-{% for prod in products %}
-   <p>{{prod.product_id}} {{prod.prod_cost}} {{prod.prod_category}} {{prod.prod_name}} {{prod.prod_description}}
-       {{prod.prod_image}} {{prod.prod_species}} {{prod.quantity_available}}
-      </p>
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+    {% for prod in products %}
+       <p>{{prod.product_id}} {{prod.prod_cost}} {{prod.prod_category}} {{prod.prod_name}} {{prod.prod_description}}
+           {{prod.prod_image}} {{prod.prod_species}} {{prod.quantity_available}}
+          </p>
 
-{% endfor %}
-    <br>
-    {{ message }}
-</div>
-</body>
-</html>
+    {% endfor %}
+        <br>
+        {{ message }}
+    </div>
+{% endblock content %}

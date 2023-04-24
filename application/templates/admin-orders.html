@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Orders</title>
-</head>
-<body>
-<div>
-{% for ord in orders %}
-   <p>{{ord.order_id}} {{ord.product_id}} {{ord.cus_id}} {{ord.quantity_ordered}} {{ord.order_date}} {{ord.collected}} {{ord.collection_date}}</p>
-{% endfor %}
-    <br>
-    {{ message }}
-</div>
-
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+    {% for ord in orders %}
+       <p>{{ord.order_id}} {{ord.product_id}} {{ord.cus_id}} {{ord.quantity_ordered}} {{ord.order_date}} {{ord.collected}} {{ord.collection_date}}</p>
+    {% endfor %}
+        <br>
+        {{ message }}
+    </div>
+{% endblock content %}

@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Customers</title>
-</head>
-<body>
-<div>
-{% for cus in customers %}
-   <p>{{cus.cus_id}} {{cus.cus_first_name}} {{cus.cus_last_name}} {{cus.cus_email}} {{cus.address}} {{cus.phone}} {{cus.cus_status}}</p>
-{% endfor %}
-    <br>
-    {{ message }}
-</div>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+    {% for cus in customers %}
+       <p>{{cus.cus_id}} {{cus.cus_first_name}} {{cus.cus_last_name}} {{cus.cus_email}} {{cus.address}} {{cus.phone}} {{cus.cus_status}}</p>
+    {% endfor %}
+        <br>
+        {{ message }}
+    </div>
+{% endblock content %}
