@@ -8,7 +8,7 @@ from application.models.order_history import OrderHistory
 from application.models.product import Product
 from application.models.vet_personnel import VetPersonnel
 from application.models.credential import Credential
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user
 
 
 @app.route("/admin/customers", methods=['GET'])
@@ -91,3 +91,16 @@ def register_patient():
         flash('You have successfully added a pet!', 'success')
         return redirect(url_for('all_products'))
     return render_template('register_pet.html', title='Register Pet', form=form)
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    flash('You are now logged out', 'success')
+    return redirect(url_for("login"))
+
+# just trialling using the current_user value - you need to be logged in as someone for it to work
+@app.route("/trial", methods=['GET'])
+def trial():
+    if current_user.is_authenticated:
+        user = Customer.query.filter_by(cus_email=current_user.email).first()
+        return [user.cus_email, user.cus_first_name, user.cus_last_name]
