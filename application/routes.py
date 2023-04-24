@@ -6,6 +6,7 @@ from application.models.customer import Customer
 from application.models.patient import Patient
 from application.models.order_history import OrderHistory
 from application.models.product import Product
+
 from application.models.vet_personnel import VetPersonnel
 from application.models.credential import Credential
 from flask_login import login_user, current_user, logout_user
