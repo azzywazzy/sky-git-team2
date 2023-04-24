@@ -7,8 +7,8 @@ from application.models.order_history import OrderHistory
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-user = 'root'
-password = ''
+user = 'workbench'
+password = 'password'
 host = '127.0.0.1'
 port = 3306
 database = 'Surgery'
