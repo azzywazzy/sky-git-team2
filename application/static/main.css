@@ -4,7 +4,12 @@ body {
   margin-top: 5rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #444444;
 }
 
@@ -12,16 +17,62 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #5f788a;
 }
 
-.site-header .navbar-nav .nav-link {
-  color: #cbd5db;
+/* Style the links inside the sidenav */
+#mySidenav a {
+  position: absolute;
+  /* Position them relative to the browser window */
+  left: -80px;
+  /* Position them outside of the screen */
+  transition: 0.3s;
+  /* Add transition on hover */
+  padding: 15px;
+  /* 15px padding */
+  width: 100px;
+  /* Set a specific width */
+  text-decoration: none;
+  /* Remove underline */
+  font-size: 20px;
+  /* Increase font size */
+  color: white;
+  /* White text color */
+  border-radius: 0 5px 5px 0;
+  /* Rounded corners on the top right and bottom right side */
 }
 
-.site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
+#mySidenav a:hover {
+  left: 0;
+  /* On mouse-over, make the elements appear as they should */
 }
 
-.site-header .navbar-nav .nav-link.active {
-  font-weight: 500;
+/* The about link: 20px from the top with a green background */
+#home {
+  top: 20px;
+  background-color: #74fecc;
+  /* green */
+}
+
+#about-us {
+  top: 90px;
+  background-color: #6bb7f5;
+  /* blue */
+}
+
+#products {
+  top: 190px;
+  background-color: #a694fe;
+  /* purple */
+}
+
+#account {
+  top: 260px;
+  background-color: #f3a2ff;
+  /* pink */
+}
+
+#pet-advice {
+  top: 330px;
+  background-color: #f9b2b2;
+  /* orange */
 }
 
 .content-section {
