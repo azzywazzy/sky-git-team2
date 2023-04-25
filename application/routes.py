@@ -9,7 +9,7 @@ from application.models.product import Product
 
 from application.models.vet_personnel import VetPersonnel
 from application.models.credential import Credential
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 @app.route('/')
@@ -20,12 +20,15 @@ def home():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = Credential.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.hash_password, form.hash_password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('all_customers'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -35,11 +38,13 @@ def login():
 def logout():
     logout_user()
     flash('You are now logged out', 'success')
-    return redirect(url_for("login"))
+    return redirect(url_for('home'))
 
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -69,6 +74,12 @@ def register_patient():
         flash('You have successfully added a pet!', 'success')
         return redirect(url_for('all_products'))
     return render_template('register_pet.html', title='Register Pet', form=form)
+
+
+@app.route("/account")
+@login_required
+def account():
+    return render_template('account.html', title='Account')
 
 
 @app.route("/admin/customers", methods=['GET'])
