@@ -10,3 +10,4 @@ CREATE TABLE customer(
     phone char(11) not null,
     cus_status tinyint
 )
+

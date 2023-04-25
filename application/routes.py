@@ -159,3 +159,20 @@ def trial():
         user = Customer.query.filter_by(cus_email=current_user.email).first()
         return [user.cus_email, user.cus_first_name, user.cus_last_name]
     # return jsonify(products)
+
+@app.route('/pet-care', methods=['GET'])
+def pet_care():
+    return render_template('pet_care.html')
+
+@app.route('/the-team', methods=['GET'])
+def the_team():
+    return render_template(('the-team.html'))
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    return render_template(('admin.html'))
+
+@app.route('/contact-us', methods=['GET'])
+def contact_us():
+    return render_template(('contact_us.html'))
+

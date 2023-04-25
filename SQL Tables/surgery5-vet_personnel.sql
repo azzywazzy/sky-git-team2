@@ -7,3 +7,4 @@ CREATE TABLE vet_personnel(
     vet_department varchar(50),
     vet_role varchar(50)
 )
+

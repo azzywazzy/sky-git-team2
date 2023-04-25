@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 
-user = 'workbench'
+user = 'root'
 password = 'password'
 host = '127.0.0.1'
 port = 3306
