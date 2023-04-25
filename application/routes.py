@@ -1,6 +1,6 @@
 from flask import render_template, jsonify, json, request, url_for, redirect, flash
 from application import app, service, db, bcrypt, login_manager
-from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm
+from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm, PatientUpdateForm
 from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
 from application.models.patient import Patient
@@ -64,7 +64,8 @@ def register():
 def register_patient():
     form = PatientRegistrationForm()
     if form.validate_on_submit():
-        patient = Patient(cus_id="1", pat_name=form.pat_name.data, species=form.species.data,
+        user = Customer.query.filter_by(cus_email=current_user.email).first()
+        patient = Patient(cus_id=user.cus_id, pat_name=form.pat_name.data, species=form.species.data,
                           breed=form.breed.data, sex=form.sex.data, date_of_birth=form.date_of_birth.data,
                           weight=form.weight.data, chip_num=form.chip_num.data,
                           neutered_status=form.neutered_status.data,
@@ -72,8 +73,41 @@ def register_patient():
         db.session.add(patient)
         db.session.commit()
         flash('You have successfully added a pet!', 'success')
-        return redirect(url_for('all_products'))
+        return redirect(url_for('account'))
     return render_template('register_pet.html', title='Register Pet', form=form)
+
+
+@app.route("/update-pet", methods=['GET', 'POST'])
+def update_patient():
+    pat_id = request.args.get('pat_id')
+    form = PatientUpdateForm()
+    user = Customer.query.filter_by(cus_email=current_user.email).first()
+    patient = Patient.query.get(pat_id)
+    if request.method == 'GET':
+        form.pat_name.data = patient.pat_name
+        form.species.data = patient.species
+        form.breed.data = patient.breed
+        form.sex.data = patient.sex
+        form.date_of_birth.data = patient.date_of_birth
+        form.weight.data = patient.weight
+        form.chip_num.data = patient.chip_num
+        form.neutered_status.data = patient.neutered_status
+        form.has_insurance.data = patient.has_insurance
+    if form.validate_on_submit():
+        patient.cus_id=user.cus_id
+        patient.pat_name=form.pat_name.data
+        patient.species=form.species.data
+        patient.breed=form.breed.data
+        patient.sex=form.sex.data
+        patient.date_of_birth=form.date_of_birth.data
+        patient.weight=form.weight.data
+        patient.chip_num=form.chip_num.data
+        patient.neutered_status=form.neutered_status.data
+        patient.has_insurance=form.has_insurance.data
+        db.session.commit()
+        flash("You have successfully updated your pet's details!", 'success')
+        return redirect(url_for('account'))
+    return render_template('update_pet.html', title='Update Pet', form=form)
 
 
 @app.route("/account")
