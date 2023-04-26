@@ -50,4 +50,15 @@ class PatientUpdateForm(FlaskForm):
     chip_num = StringField('Chip number', validators=[Optional()])
     neutered_status = BooleanField('Neutered Status', validators=[Optional()])
     has_insurance = BooleanField('Has Insurance', validators=[Optional()])
-    submit = SubmitField('Update Pet')
+    submit = SubmitField('Save Changes')
+
+
+class UpdateCustomerForm(FlaskForm):
+    old_password = PasswordField('Old Password', validators=[Optional()])
+    new_password = PasswordField('New Password', validators=[Optional()])
+    confirm_password = PasswordField('Confirm Password', validators=[Optional(), EqualTo('new_password')])
+    cus_first_name = StringField('First Name', validators=[Optional(), Length(min=1, max=20)])
+    cus_last_name = StringField('Last Name', validators=[Optional(), Length(min=1, max=20)])
+    address = StringField('Address', validators=[Optional()])
+    phone = IntegerField('Phone Number', validators=[Optional()])
+    submit = SubmitField('Save Changes')

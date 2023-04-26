@@ -1,6 +1,10 @@
 from flask import render_template, jsonify, json, request, url_for, redirect, flash
+from wtforms import StringField
+from wtforms.validators import Optional, Length
+
 from application import app, service, db, bcrypt, login_manager
-from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm, PatientUpdateForm
+from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm, PatientUpdateForm, \
+    UpdateCustomerForm
 from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
 from application.models.patient import Patient
@@ -60,6 +64,29 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+@app.route("/update-customer", methods=['GET', 'POST'])
+def update_customer():
+    form = UpdateCustomerForm()
+    user = Customer.query.filter_by(cus_email=current_user.email).first()
+    credential = Credential.query.get(current_user.id)
+    if request.method == 'GET':
+        form.cus_first_name = user.cus_first_name
+        form.cus_last_name = user.cus_last_name
+        form.address = user.address
+        form.phone = user.phone
+    if form.validate_on_submit():
+        if bcrypt.check_password_hash(credential.hash_password, form.old_password.data):
+            credential.hash_password = form.new_password.data
+        user.cus_first_name = form.cus_first_name.data
+        user.cus_last_name = form.cus_last_name.data
+        user.address = form.address.data
+        user.phone = form.phone.data
+        db.session.commit()
+        flash('Your account details have been updated!', 'success')
+        return redirect(url_for('account'))
+    return render_template('update_customer.html', title='Update-customer', form=form)
+
+
 @app.route("/register-pet", methods=['GET', 'POST'])
 def register_patient():
     form = PatientRegistrationForm()
@@ -94,16 +121,16 @@ def update_patient():
         form.neutered_status.data = patient.neutered_status
         form.has_insurance.data = patient.has_insurance
     if form.validate_on_submit():
-        patient.cus_id=user.cus_id
-        patient.pat_name=form.pat_name.data
-        patient.species=form.species.data
-        patient.breed=form.breed.data
-        patient.sex=form.sex.data
-        patient.date_of_birth=form.date_of_birth.data
-        patient.weight=form.weight.data
-        patient.chip_num=form.chip_num.data
-        patient.neutered_status=form.neutered_status.data
-        patient.has_insurance=form.has_insurance.data
+        patient.cus_id = user.cus_id
+        patient.pat_name = form.pat_name.data
+        patient.species = form.species.data
+        patient.breed = form.breed.data
+        patient.sex = form.sex.data
+        patient.date_of_birth = form.date_of_birth.data
+        patient.weight = form.weight.data
+        patient.chip_num = form.chip_num.data
+        patient.neutered_status = form.neutered_status.data
+        patient.has_insurance = form.has_insurance.data
         db.session.commit()
         flash("You have successfully updated your pet's details!", 'success')
         return redirect(url_for('account'))
@@ -160,19 +187,23 @@ def trial():
         return [user.cus_email, user.cus_first_name, user.cus_last_name]
     # return jsonify(products)
 
+
 @app.route('/pet-care', methods=['GET'])
 def pet_care():
     return render_template('pet_care.html')
 
+
 @app.route('/the-team', methods=['GET'])
 def the_team():
-    return render_template(('the-team.html'))
+    return render_template('the-team.html')
+
 
 @app.route('/admin', methods=['GET'])
 def admin():
-    return render_template(('admin.html'))
+    return render_template('admin.html')
+
 
 @app.route('/contact-us', methods=['GET'])
 def contact_us():
-    return render_template(('contact_us.html'))
+    return render_template('contact_us.html')
 

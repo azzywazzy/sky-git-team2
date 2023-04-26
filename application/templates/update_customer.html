@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Account Details</legend>
+                <div class="form-group">
+                    {{ form.old_password.label(class="form-control-label") }}
+                    {{ form.old_password(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.new_password.label(class="form-control-label") }}
+                    {{ form.new_password(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.confirm_password.label(class="form-control-label") }}
+                    {{ form.confirm_password(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.cus_first_name.label(class="form-control-label") }}
+                    {{ form.cus_first_name(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.cus_last_name.label(class="form-control-label") }}
+                    {{ form.cus_last_name(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.address.label(class="form-control-label") }}
+                    {{ form.address(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.phone.label(class="form-control-label") }}
+                    {{ form.phone(class="form-control form control-lg") }}
+                </div>
+
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn_outline_info") }}
+            </div>
+        </form>
+
+      </div>
+
+{% endblock content %}
