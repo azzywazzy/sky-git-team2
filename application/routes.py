@@ -4,7 +4,7 @@ from wtforms.validators import Optional, Length
 
 from application import app, service, db, bcrypt, login_manager
 from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm, PatientUpdateForm, \
-    UpdateCustomerForm
+    UpdateCustomerForm, UpdatePasswordForm
 from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
 from application.models.patient import Patient
@@ -66,17 +66,14 @@ def register():
 
 @app.route("/update-customer", methods=['GET', 'POST'])
 def update_customer():
-    form = UpdateCustomerForm()
     user = Customer.query.filter_by(cus_email=current_user.email).first()
-    credential = Credential.query.get(current_user.id)
+    form = UpdateCustomerForm()
     if request.method == 'GET':
         form.cus_first_name = user.cus_first_name
         form.cus_last_name = user.cus_last_name
         form.address = user.address
         form.phone = user.phone
     if form.validate_on_submit():
-        if bcrypt.check_password_hash(credential.hash_password, form.old_password.data):
-            credential.hash_password = form.new_password.data
         user.cus_first_name = form.cus_first_name.data
         user.cus_last_name = form.cus_last_name.data
         user.address = form.address.data
@@ -85,6 +82,19 @@ def update_customer():
         flash('Your account details have been updated!', 'success')
         return redirect(url_for('account'))
     return render_template('update_customer.html', title='Update-customer', form=form)
+
+
+@app.route("/update-password", methods=['GET', 'POST'])
+def update_password():
+    form = UpdatePasswordForm()
+    credential = Credential.query.get(current_user.id)
+    if form.validate_on_submit():
+        if bcrypt.check_password_hash(credential.hash_password, form.old_password.data):
+            credential.hash_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
+        db.session.commit()
+        flash('Your password has been updated!', 'success')
+        return redirect(url_for('account'))
+    return render_template('update_password.html', title='Update-password', form=form)
 
 
 @app.route("/register-pet", methods=['GET', 'POST'])

@@ -53,12 +53,16 @@ class PatientUpdateForm(FlaskForm):
     submit = SubmitField('Save Changes')
 
 
+class UpdatePasswordForm(FlaskForm):
+    old_password = PasswordField('Old Password', validators=[DataRequired()])
+    new_password = PasswordField('New Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('Save Changes')
+
+
 class UpdateCustomerForm(FlaskForm):
-    old_password = PasswordField('Old Password', validators=[Optional()])
-    new_password = PasswordField('New Password', validators=[Optional()])
-    confirm_password = PasswordField('Confirm Password', validators=[Optional(), EqualTo('new_password')])
-    cus_first_name = StringField('First Name', validators=[Optional(), Length(min=1, max=20)])
-    cus_last_name = StringField('Last Name', validators=[Optional(), Length(min=1, max=20)])
-    address = StringField('Address', validators=[Optional()])
-    phone = IntegerField('Phone Number', validators=[Optional()])
+    cus_first_name = StringField('First Name', validators=[Length(min=1, max=20)])
+    cus_last_name = StringField('Last Name', validators=[Length(min=1, max=20)])
+    address = StringField('Address')
+    phone = IntegerField('Phone Number')
     submit = SubmitField('Save Changes')
