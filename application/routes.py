@@ -69,10 +69,10 @@ def update_customer():
     user = Customer.query.filter_by(cus_email=current_user.email).first()
     form = UpdateCustomerForm()
     if request.method == 'GET':
-        form.cus_first_name = user.cus_first_name
-        form.cus_last_name = user.cus_last_name
-        form.address = user.address
-        form.phone = user.phone
+        form.cus_first_name.data = user.cus_first_name
+        form.cus_last_name.data = user.cus_last_name
+        form.address.data = user.address
+        form.phone.data = user.phone
     if form.validate_on_submit():
         user.cus_first_name = form.cus_first_name.data
         user.cus_last_name = form.cus_last_name.data
