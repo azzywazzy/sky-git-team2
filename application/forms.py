@@ -66,3 +66,15 @@ class UpdateCustomerForm(FlaskForm):
     address = StringField('Address')
     phone = IntegerField('Phone Number')
     submit = SubmitField('Save Changes')
+
+class AdminPatientUpdateForm(FlaskForm):
+    pat_name = StringField('Pet Name', validators=[DataRequired(), Length(min=1, max=20)])
+    species = StringField('Species', validators=[DataRequired(), Length(min=1, max=20)])
+    breed = StringField('Breed', validators=[Optional()])
+    sex = SelectField('Sex', choices=['F', 'M'], validators=[Optional()])
+    date_of_birth = DateField('Date of Birth', format='%d/%m/%Y', validators=[Optional()])
+    weight = IntegerField('Weight in Grammes', validators=[Optional()])
+    chip_num = StringField('Chip number', validators=[Optional()])
+    neutered_status = BooleanField('Neutered Status', validators=[Optional()])
+    has_insurance = BooleanField('Has Insurance', validators=[Optional()])
+    submit = SubmitField('Save Changes')

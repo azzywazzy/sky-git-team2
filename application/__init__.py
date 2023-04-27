@@ -7,10 +7,10 @@ from flask_bootstrap import Bootstrap5
 
 
 user = 'root'
-password = ''
+password = 'password'
 host = '127.0.0.1'
 port = 3306
-database = 'Surgery'
+database = 'surgery'
 
 app = Flask(__name__)
 bootstrap = Bootstrap5(app)

@@ -1,10 +1,55 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>
-    {% for ord in orders %}
-       <p>{{ord.order_id}} {{ord.product_id}} {{ord.cus_id}} {{ord.quantity_ordered}} {{ord.order_date}} {{ord.collected}} {{ord.collection_date}}</p>
-    {% endfor %}
-        <br>
-        {{ message }}
-    </div>
+
+<table id="tab_ord" class="table table-striped">
+    <thead>
+      <tr>
+         <th>Update</th>
+        <th>id</th>
+        <th>Product id</th>
+        <th>Product Name</th>
+        <th>Customer id</th>
+        <th>Customer Name</th>
+          <th>Quantity Ordered</th>
+          <th>Order Date</th>
+           <th>Collection Date</th>
+                   <th>Collected</th>
+
+      </tr>
+    </thead>
+      <tbody>
+      {% for ord in orders %}
+        <tr>
+          <td><a href="/admin/orders/update/{{ ord.order_id }}">update record</a></td>
+          <td>{{ ord.order_id }}</td>
+              <td>{{ ord.product_id }}</td>
+          <td>{{ ord.prod_name }}</td>
+          <td>{{ ord.cus_id }}</td>
+          <td>{{ ord.cus_last_name }} </td>
+            <td>{{ (ord.quantity_ordered)  }}</td>
+          <td>{{ ord.order_date }}</td>
+            <td>{{ ord.collection_date }}</td>
+                <td>{% if ord.collected == 1 -%}
+                    Y
+                    {% else -%}
+                    N
+                {% endif %}</td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  <tfoot>
+
+  </tfoot>
+</table>
 {% endblock content %}
+
+{% block scripts %}
+<script>
+
+$(document).ready(function () {
+      $('#tab_ord').DataTable();
+});
+
+    </script>
+{% endblock %}

@@ -4,7 +4,7 @@ from wtforms.validators import Optional, Length
 
 from application import app, service, db, bcrypt, login_manager
 from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm, PatientUpdateForm, \
-    UpdateCustomerForm, UpdatePasswordForm
+    UpdateCustomerForm, UpdatePasswordForm, AdminPatientUpdateForm
 from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
 from application.models.patient import Patient
@@ -217,3 +217,60 @@ def admin():
 def contact_us():
     return render_template('contact_us.html')
 
+@app.route("/admin/products/update/<prod_id>", methods=['GET'])
+def admin_update_product(prod_id):
+    error = ""
+    product = service.get_admin_product(prod_id)
+    if not product:
+        error = "There is no product to display"
+    return render_template('admin-products-update.html', product=product, message=error)
+
+@app.route("/admin/orders/update/<ord_id>", methods=['GET'])
+def admin_update_order(ord_id):
+    error = ""
+    order = service.get_admin_order(ord_id)
+    if not order:
+        error = "There is no order to display"
+    return render_template('admin-orders-update.html', order=order, message=error)
+
+@app.route("/admin/customers/update/<cus_id>", methods=['GET'])
+def admin_update_customer(cus_id):
+    error = ""
+    customer = service.get_admin_customer(cus_id)
+    if not customer:
+        error = "There is no customer to display"
+    return render_template('admin-customers-update.html', customer=customer, message=error)
+
+
+@app.route("/admin/patients/update/<pat_id>", methods=['GET', 'POST'])
+def admin_update_patient(pat_id):
+    if current_user.is_authenticated and current_user.user_type == 1:
+        form = AdminPatientUpdateForm()
+        patient = service.get_admin_patient(pat_id)
+        if request.method == 'GET':
+            form.pat_name.data = patient.pat_name
+            form.species.data = patient.species
+            form.breed.data = patient.breed
+            form.sex.data = patient.sex
+            form.date_of_birth.data = patient.date_of_birth
+            form.weight.data = patient.weight
+            form.chip_num.data = patient.chip_num
+            form.neutered_status.data = patient.neutered_status
+            form.has_insurance.data = patient.has_insurance
+        if form.validate_on_submit():
+            patient.pat_name = form.pat_name.data
+            patient.species = form.species.data
+            patient.breed = form.breed.data
+            patient.sex = form.sex.data
+            patient.date_of_birth = form.date_of_birth.data
+            patient.weight = form.weight.data
+            patient.chip_num = form.chip_num.data
+            patient.neutered_status = form.neutered_status.data
+            patient.has_insurance = form.has_insurance.data
+            db.session.commit()
+            flash("patient details updated", 'success')
+            return redirect(url_for('all_patients'))
+        return render_template('admin-patients-update.html', title="Update Patient", form=form)
+    else:
+        flash("you are not permitted access", 'success')
+        return redirect(url_for('all_patients'))

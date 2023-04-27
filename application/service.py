@@ -13,13 +13,41 @@ def get_all_customers():
 
 
 def get_all_patients():
-    return db.session.query(Patient).all()
+    full_patients = []
+    display_patients = db.session.query(Patient).all()
+    for row in display_patients:
+        customer = db.session.query(Customer).filter_by(cus_id=row.cus_id).first()
+        dict_info = {"pat_id": row.pat_id, "cus_id": row.cus_id, "pat_name": row.pat_name, "species": row.species, "breed": row.breed, "sex": row.sex, "date_of_birth": row.date_of_birth, "weight": row.weight, "chip_num": row.chip_num, "neutered_status": row.neutered_status, "has_insurance": row.has_insurance, "cus_last_name": customer.cus_last_name}
+        full_patients.append(dict_info)
+    return full_patients
 
 
 def get_all_orders():
-    return db.session.query(OrderHistory).all()
+    full_orders = []
+    display_orders = db.session.query(OrderHistory).all()
+    for row in display_orders:
+        customer = db.session.query(Customer).filter_by(cus_id=row.cus_id).first()
+        product = db.session.query(Product).filter_by(product_id=row.product_id).first()
+        dict_info = {"order_id": row.order_id, "product_id": row.product_id, "cus_id": row.cus_id, "quantity_ordered": row.quantity_ordered, "order_date": row.order_date, "collection_date": row.collection_date, "collected": row.collected, "cus_last_name": customer.cus_last_name, "prod_name": product.prod_name}
+        full_orders.append(dict_info)
+    return full_orders
 
 
 def get_all_products():
     return db.session.query(Product).all()
 
+
+def get_admin_product(prod_id):
+    return Product.query.filter_by(product_id=prod_id).first()
+
+
+def get_admin_order(ord_id):
+    return OrderHistory.query.filter_by(order_id=ord_id).first()
+
+
+def get_admin_customer(cus_id):
+    return Customer.query.filter_by(cus_id=cus_id).first()
+
+
+def get_admin_patient(pat_id):
+    return Patient.query.filter_by(pat_id=pat_id).first()

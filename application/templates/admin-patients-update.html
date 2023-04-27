@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Patient</legend>
+                <div class="form-group">
+                    {{ form.pat_name.label(class="form-control-label") }}
+                    {{ form.pat_name(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.species.label(class="form-control-label") }}
+                    {{ form.species(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.breed.label(class="form-control-label") }}
+                    {{ form.breed(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.sex.label(class="form-control-label") }}
+                    {{ form.sex(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.date_of_birth.label(class="form-control-label") }}
+                    {{ form.date_of_birth(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.weight.label(class="form-control-label") }}
+                    {{ form.weight(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.chip_num.label(class="form-control-label") }}
+                    {{ form.chip_num(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.neutered_status.label(class="form-control-label") }}
+                    {{ form.neutered_status(class="form-control form control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.has_insurance.label(class="form-control-label") }}
+                    {{ form.has_insurance(class="form-control form control-lg") }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn_outline_info") }}
+            </div>
+        </form>
+
+      </div>
+
+{% endblock content %}

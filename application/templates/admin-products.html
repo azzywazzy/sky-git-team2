@@ -1,13 +1,77 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>
-    {% for prod in products %}
-       <p>{{prod.product_id}} {{prod.prod_cost}} {{prod.prod_category}} {{prod.prod_name}} {{prod.prod_description}}
-           {{prod.prod_image}} {{prod.prod_species}} {{prod.quantity_available}}
-          </p>
 
-    {% endfor %}
-        <br>
-        {{ message }}
-    </div>
+
+<table id="tab_prod" class="table table-striped">
+    <thead>
+      <tr>
+         <th>Update</th>
+        <th>id</th>
+        <th>Species</th>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Description</th>
+          <th>Cost (£)</th>
+          <th>Image Ref</th>
+          <th>Quantity Available</th>
+
+      </tr>
+    </thead>
+      <tbody>
+      {% for prod in products %}
+        <tr>
+          <td><a href="/admin/products/update/{{ prod.product_id }}">update record</a></td>
+          <td>{{ prod.product_id }}</td>
+              <td>{{ prod.prod_species }}</td>
+          <td>{{ prod.prod_category }}</td>
+          <td>{{ prod.prod_name }}</td>
+          <td>{{ prod.prod_description }} </td>
+            <td>{{ (prod.prod_cost / 100)  }}</td>
+          <td>{{ prod.prod_image }}</td>
+            <td>{{ prod.quantity_available }}</td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  <tfoot>
+
+  </tfoot>
+</table>
 {% endblock content %}
+
+{% block scripts %}
+<script>
+
+$(document).ready(function () {
+      $('#tab_prod').DataTable();
+});
+
+
+
+<!--    $('#data').DataTable({-->
+<!--        initComplete: function () {-->
+<!--            this.api()-->
+<!--                .columns()-->
+<!--                .every(function () {-->
+<!--                    var column = this;-->
+<!--                    var select = $('<select><option value=""></option></select>')-->
+<!--                        .appendTo($(column.header()).empty())-->
+<!--                        .on('change', function () {-->
+<!--                            var val = $.fn.dataTable.util.escapeRegex($(this).val());-->
+
+<!--                            column.search(val ? '^' + val + '$' : '', true, false).draw();-->
+<!--                        });-->
+
+<!--                    column-->
+<!--                        .data()-->
+<!--                        .unique()-->
+<!--                        .sort()-->
+<!--                        .each(function (d, j) {-->
+<!--                            select.append('<option value="' + d + '">' + d + '</option>');-->
+<!--                        });-->
+<!--                });-->
+<!--        },-->
+<!--    });-->
+<!--});-->
+</script>
+{% endblock %}

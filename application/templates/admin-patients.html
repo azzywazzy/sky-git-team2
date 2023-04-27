@@ -1,14 +1,68 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>
-    {% for pat in patients %}
-       <p>{{pat.pat_id}} {{pat.cus_id}} {{pat.pat_name}} {{pat.species}} {{pat.breed}}
-           {{pat.sex}} {{pat.date_of_birth}} {{pat.weight}} {{pat.chip_number}}
-           {% if pat.neutered_status == 1 %} Y {% elif pat.neutered_status == 0 %} N {% endif %}
-           {% if pat.has_insurance == 1 %} Y {% elif pat.has_insurance == 0 %} N {% endif %}</p>
 
-    {% endfor %}
-        <br>
-        {{ message }}
-    </div>
+
+
+<table id="tab_pat" class="table table-striped">
+    <thead>
+      <tr>
+         <th>Update</th>
+        <th>id</th>
+        <th>Customer id</th>
+        <th>Customer Name</th>
+        <th>Patient Name</th>
+        <th>Species</th>
+        <th>Breed</th>
+          <th>Sex</th>
+          <th>DoB</th>
+          <th>Weight (kg)</th>
+         <th>Chip No.</th>
+         <th>Neuter</th>
+         <th>Insurance</th>
+
+
+      </tr>
+    </thead>
+      <tbody>
+      {% for pat in patients %}
+        <tr>
+          <td><a href="/admin/patients/update/{{ pat.pat_id }}">update record</a></td>
+          <td>{{ pat.pat_id }}</td>
+              <td>{{ pat.cus_id }}</td>
+          <td>{{ pat.cus_last_name }}</td>
+          <td>{{ pat.pat_name }}</td>
+          <td>{{ pat.species }} </td>
+            <td>{{ pat.breed  }}</td>
+          <td>{{ pat.sex }}</td>
+            <td>{{ pat.date_of_birth }}</td>
+            <td>{{ pat.weight / 1000 }} </td>
+            <td>{{ pat.chip_num }}</td>
+            <td>{% if pat.neutered_status == 1 -%}
+                    Y
+                    {% else -%}
+                    N
+                {% endif %}</td>
+            <td>{% if pat.has_insurance == 1 -%}
+                    Y
+                    {% else -%}
+                    N
+                {% endif %}</td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  <tfoot>
+
+  </tfoot>
+</table>
 {% endblock content %}
+
+{% block scripts %}
+<script>
+
+$(document).ready(function () {
+      $('#tab_pat').DataTable();
+});
+
+</script>
+{% endblock %}

@@ -1,10 +1,49 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>
-    {% for cus in customers %}
-       <p>{{cus.cus_id}} {{cus.cus_first_name}} {{cus.cus_last_name}} {{cus.cus_email}} {{cus.address}} {{cus.phone}} {{cus.cus_status}}</p>
-    {% endfor %}
-        <br>
-        {{ message }}
-    </div>
+<table id="tab_cus" class="table table-striped">
+    <thead>
+      <tr>
+         <th>Update</th>
+        <th>id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Address</th>
+          <th>Phone</th>
+          <th>Status</th>
+           <th>Pets</th>
+
+
+      </tr>
+    </thead>
+      <tbody>
+      {% for cus in customers %}
+        <tr>
+          <td><a href="/admin/customers/update/{{ cus.cus_id }}">update record</a></td>
+          <td>{{ cus.cus_id }}</td>
+              <td>{{ cus.cus_first_name }}</td>
+          <td>{{ cus.cus_last_name }}</td>
+          <td>{{ cus.cus_email }}</td>
+          <td>{{ cus.address }}</td>
+            <td>{{ cus.phone[:5] }} {{ cus.phone[5:] }}</td>
+          <td>{{ cus.cus_status }}</td>
+            <td></td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  <tfoot>
+
+  </tfoot>
+</table>
 {% endblock content %}
+
+{% block scripts %}
+<script>
+
+$(document).ready(function () {
+      $('#tab_cus').DataTable();
+});
+
+</script>
+{% endblock %}
