@@ -27,7 +27,10 @@
           <td>{{ cus.address }}</td>
             <td>{{ cus.phone[:5] }} {{ cus.phone[5:] }}</td>
           <td>{{ cus.cus_status }}</td>
-            <td></td>
+            <td> {% for pet in cus.patients %}
+                <a href="/admin/patients/update/{{ pet.pat_id }}">{{ pet.pat_name }}</a>
+            {% endfor %}
+            </td>
 
         </tr>
       {% endfor %}

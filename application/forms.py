@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, DateField, SelectField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, DateField, SelectField, RadioField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional
 from application.models.customer import Customer
 
@@ -77,4 +77,31 @@ class AdminPatientUpdateForm(FlaskForm):
     chip_num = StringField('Chip number', validators=[Optional()])
     neutered_status = BooleanField('Neutered Status', validators=[Optional()])
     has_insurance = BooleanField('Has Insurance', validators=[Optional()])
+    submit = SubmitField('Save Changes')
+
+class AdminUpdateCustomerForm(FlaskForm):
+    cus_first_name = StringField('First Name', validators=[Length(min=1, max=20)])
+    cus_last_name = StringField('Last Name', validators=[Length(min=1, max=20)])
+    address = StringField('Address')
+    phone = IntegerField('Phone Number')
+    submit = SubmitField('Save Changes')
+
+
+class AdminUpdateProductForm(FlaskForm):
+    prod_name = StringField('Name', validators=[Length(min=1, max=50)])
+    prod_species = SelectField('Species', choices=[("cat", "cat"), ("dog", "dog"), ("farm", "farm"),  ("small animal", "small animal"), ("reptile", "reptile"), ("other", "other")])
+    prod_category = SelectField('Category', choices=[("accessories", "accessories"), ("food", "food"), ("medication", "medication"),  ("toiletries", "toiletries"), ("toys", "toys")])
+    prod_description = TextAreaField('Description')
+    prod_cost = IntegerField('Cost')
+    quantity_available = IntegerField('Quantity Available')
+    submit = SubmitField('Save Changes')
+
+
+class AdminAddProductForm(FlaskForm):
+    prod_name = StringField('Name', validators=[Length(min=1, max=50)])
+    prod_species = SelectField('Species', choices=[("cat", "cat"), ("dog", "dog"), ("farm", "farm"),  ("small animal", "small animal"), ("reptile", "reptile"), ("other", "other")])
+    prod_category = SelectField('Category', choices=[("accessories", "accessories"), ("food", "food"), ("medication", "medication"),  ("toiletries", "toiletries"), ("toys", "toys")])
+    prod_description = TextAreaField('Description')
+    prod_cost = IntegerField('Cost')
+    quantity_available = IntegerField('Quantity Available')
     submit = SubmitField('Save Changes')

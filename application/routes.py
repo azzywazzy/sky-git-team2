@@ -4,7 +4,8 @@ from wtforms.validators import Optional, Length
 
 from application import app, service, db, bcrypt, login_manager
 from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm, PatientUpdateForm, \
-    UpdateCustomerForm, UpdatePasswordForm, AdminPatientUpdateForm
+    UpdateCustomerForm, UpdatePasswordForm, AdminPatientUpdateForm, AdminUpdateCustomerForm, AdminUpdateProductForm, \
+    AdminAddProductForm
 from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
 from application.models.patient import Patient
@@ -159,7 +160,7 @@ def all_customers():
     customers = service.get_all_customers()
     if len(customers) == 0:
         error = "There are no customers to display"
-    return render_template('admin-customers.html', customers=customers, message=error)
+    return render_template('admin-customers.html', customers=customers, message=error, title = "Admin View all Customers")
 
 
 @app.route("/admin/orders", methods=['GET'])
@@ -168,7 +169,7 @@ def all_orders():
     orders = service.get_all_orders()
     if len(orders) == 0:
         error = "There are no orders to display"
-    return render_template('admin-orders.html', orders=orders, message=error)
+    return render_template('admin-orders.html', orders=orders, message=error, title = "Admin View all Orders")
 
 
 @app.route("/admin/patients", methods=['GET'])
@@ -177,7 +178,7 @@ def all_patients():
     patients = service.get_all_patients()
     if len(patients) == 0:
         error = "There are no patients to display"
-    return render_template('admin-patients.html', patients=patients, message=error)
+    return render_template('admin-patients.html', patients=patients, message=error, title = "Admin View all Patients")
 
 
 @app.route('/admin/products', methods=['GET'])
@@ -186,7 +187,7 @@ def all_products():
     products = service.get_all_products()
     if len(products) == 0:
         error = "There are no products to display"
-    return render_template('admin-products.html', products=products, message=error)
+    return render_template('admin-products.html', products=products, message=error, title = "Admin View all Products")
 
 
 # just trialling using the current_user value - you need to be logged in as someone for it to work
@@ -210,36 +211,76 @@ def the_team():
 
 @app.route('/admin', methods=['GET'])
 def admin():
-    return render_template('admin.html')
+    if current_user.is_authenticated and current_user.user_type == 1:
+        return render_template('admin.html', title='Admin Tasks')
+    else:
+        flash("you are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route('/contact-us', methods=['GET'])
 def contact_us():
     return render_template('contact_us.html')
 
-@app.route("/admin/products/update/<prod_id>", methods=['GET'])
+@app.route("/admin/products/update/<prod_id>", methods=['GET', 'POST'])
 def admin_update_product(prod_id):
-    error = ""
-    product = service.get_admin_product(prod_id)
-    if not product:
-        error = "There is no product to display"
-    return render_template('admin-products-update.html', product=product, message=error)
+    if current_user.is_authenticated and current_user.user_type == 1:
+        form = AdminUpdateProductForm()
+        product = service.get_admin_product(prod_id)
+        if request.method == 'GET':
+            form.prod_name.data = product.prod_name
+            form.prod_species.data = product.prod_species
+            form.prod_category.data = product.prod_category
+            form.prod_description.data = product.prod_description
+            form.prod_cost.data = product.prod_cost
+            form.quantity_available.data = product.quantity_available
+        if form.validate_on_submit():
+            product.prod_name = form.prod_name.data
+            product.prod_species = form.prod_species.data
+            product.prod_category = form.prod_category.data
+            product.prod_description = form.prod_description.data
+            product.prod_cost = form.prod_cost.data
+            product.quantity_available = form.quantity_available.data
+            db.session.commit()
+            flash('product updated', 'success')
+            return redirect(url_for('all_products'))
+        return render_template('admin-products-update.html', form=form, title='Admin Update Product')
+    else:
+        flash("you are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
-@app.route("/admin/orders/update/<ord_id>", methods=['GET'])
+
+@app.route("/admin/orders/update/<ord_id>", methods=['GET', 'POST'])
 def admin_update_order(ord_id):
     error = ""
     order = service.get_admin_order(ord_id)
     if not order:
         error = "There is no order to display"
-    return render_template('admin-orders-update.html', order=order, message=error)
+    return render_template('admin-orders-update.html', order=order, message=error, title = "Admin Update Order")
 
-@app.route("/admin/customers/update/<cus_id>", methods=['GET'])
+
+@app.route("/admin/customers/update/<cus_id>", methods=['GET', 'POST'])
 def admin_update_customer(cus_id):
-    error = ""
-    customer = service.get_admin_customer(cus_id)
-    if not customer:
-        error = "There is no customer to display"
-    return render_template('admin-customers-update.html', customer=customer, message=error)
+    if current_user.is_authenticated and current_user.user_type == 1:
+        form = AdminUpdateCustomerForm()
+        user = service.get_admin_customer(cus_id)
+        if request.method == 'GET':
+            form.cus_first_name.data = user.cus_first_name
+            form.cus_last_name.data = user.cus_last_name
+            form.address.data = user.address
+            form.phone.data = user.phone
+        if form.validate_on_submit():
+            user.cus_first_name = form.cus_first_name.data
+            user.cus_last_name = form.cus_last_name.data
+            user.address = form.address.data
+            user.phone = form.phone.data
+            db.session.commit()
+            flash('customer record updated', 'success')
+            return redirect(url_for('all_customers'))
+        return render_template('admin-customers-update.html', form=form, title='Admin Update Customer Details')
+    else:
+        flash("you are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route("/admin/patients/update/<pat_id>", methods=['GET', 'POST'])
@@ -270,7 +311,39 @@ def admin_update_patient(pat_id):
             db.session.commit()
             flash("patient details updated", 'success')
             return redirect(url_for('all_patients'))
-        return render_template('admin-patients-update.html', title="Update Patient", form=form)
+        return render_template('admin-patients-update.html', title="Admin Update Patient Record", form=form)
     else:
-        flash("you are not permitted access", 'success')
-        return redirect(url_for('all_patients'))
+        flash("you are not permitted access", 'danger')
+        return redirect(url_for('home'))
+
+
+@app.route("/admin/products/add", methods=['GET', 'POST'])
+def admin_add_product():
+    if current_user.is_authenticated and current_user.user_type == 1:
+        form = AdminAddProductForm()
+        if form.validate_on_submit():
+            product = Product(prod_name=form.prod_name.data, prod_species=form.prod_species.data,
+                              prod_category=form.prod_category.data, prod_description=form.prod_description.data,
+                              prod_cost=form.prod_cost.data, quantity_available=form.quantity_available.data)
+            db.session.add(product)
+            db.session.commit()
+            flash('new product added', 'success')
+            return redirect(url_for('all_products'))
+        return render_template('admin-products-add.html', form=form, title='Admin Add Product')
+    else:
+        flash("you are not permitted access", 'danger')
+        return redirect(url_for('home'))
+
+
+@app.route('/products', methods=['GET'])
+def view_products():
+    error = ""
+    products = service.get_all_products()
+    if len(products) == 0:
+        error = "There are no products to display"
+    return render_template('products.html', products=products, message=error, title="Products Available")
+
+
+
+
+

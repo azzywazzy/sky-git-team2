@@ -1,9 +1,7 @@
+{% from 'bootstrap5/form.html' import render_form %}
 {% extends "layout.html" %}
 {% block content %}
-
-    <div>
-     <p>{{ product.product_id }} {{ product.prod_name }}</p>
-        <br>
-        {{ message }}
+    <div class="content-section">
+        {{ render_form(form) }}
     </div>
 {% endblock content %}

@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> Admin </title>
-</head>
-<body>
-<h1>  Admin Page </h1>
-<h3> More to come.. </h3>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+<p>
+<div>
+        <button type="button" class="btn btn_outline_info"><a href="/admin/customers">Customers:   </a><small>view, update, contact</small></button>
+    </div>
+</p>
+<p>
+    <div>
+        <button type="button" class="btn btn_outline_info"><a href="/admin/patients">Patients:   </a><small>view, update</small></button>
+    </div>
+</p>
+<p>
+    <div>
+        <button type="button" class="btn btn_outline_info"><a href="/admin/orders">Orders:   </a><small>view, acknowledge collection, cancel</small></button>
+    </div>
+</p>
+<p>
+    <div>
+        <button type="button" class="btn btn_outline_info"><a href="/admin/products">Products:   </a><small>view, add, update</small></button>
+    </div>
+</p>
+{% endblock content %}

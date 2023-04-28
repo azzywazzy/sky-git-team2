@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-
+<p><button type="button" class="btn btn_outline_info"><a href="/admin/products/add">Click to Add New Product</a></button></p>
 <table id="tab_prod" class="table table-striped">
     <thead>
       <tr>
@@ -42,8 +42,9 @@
 {% block scripts %}
 <script>
 
+
 $(document).ready(function () {
-      $('#tab_prod').DataTable();
+      $('#tab_ord').DataTable();
 });
 
 
