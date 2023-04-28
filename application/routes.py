@@ -5,7 +5,7 @@ from wtforms.validators import Optional, Length
 from application import app, service, db, bcrypt, login_manager
 from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm, PatientUpdateForm, \
     UpdateCustomerForm, UpdatePasswordForm, AdminPatientUpdateForm, AdminUpdateCustomerForm, AdminUpdateProductForm, \
-    AdminAddProductForm
+    AdminAddProductForm, AdminUpdateOrderForm
 from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
 from application.models.patient import Patient
@@ -80,7 +80,7 @@ def update_customer():
         user.address = form.address.data
         user.phone = form.phone.data
         db.session.commit()
-        flash('Your account details have been updated!', 'success')
+        flash('Your account details have been updated', 'success')
         return redirect(url_for('account'))
     return render_template('update_customer.html', title='Update-customer', form=form)
 
@@ -93,7 +93,7 @@ def update_password():
         if bcrypt.check_password_hash(credential.hash_password, form.old_password.data):
             credential.hash_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
         db.session.commit()
-        flash('Your password has been updated!', 'success')
+        flash('Your password has been updated', 'success')
         return redirect(url_for('account'))
     return render_template('update_password.html', title='Update-password', form=form)
 
@@ -110,14 +110,13 @@ def register_patient():
                           has_insurance=form.has_insurance.data, )
         db.session.add(patient)
         db.session.commit()
-        flash('You have successfully added a pet!', 'success')
+        flash('You have successfully added a pet', 'success')
         return redirect(url_for('account'))
     return render_template('register_pet.html', title='Register Pet', form=form)
 
 
-@app.route("/update-pet", methods=['GET', 'POST'])
-def update_patient():
-    pat_id = request.args.get('pat_id')
+@app.route("/update-pet/<pat_id>", methods=['GET', 'POST'])
+def update_patient(pat_id):
     form = PatientUpdateForm()
     user = Customer.query.filter_by(cus_email=current_user.email).first()
     patient = Patient.query.get(pat_id)
@@ -143,7 +142,7 @@ def update_patient():
         patient.neutered_status = form.neutered_status.data
         patient.has_insurance = form.has_insurance.data
         db.session.commit()
-        flash("You have successfully updated your pet's details!", 'success')
+        flash("You have successfully updated your pet's details", 'success')
         return redirect(url_for('account'))
     return render_template('update_pet.html', title='Update Pet', form=form)
 
@@ -196,7 +195,6 @@ def trial():
     if current_user.is_authenticated:
         user = Customer.query.filter_by(cus_email=current_user.email).first()
         return [user.cus_email, user.cus_first_name, user.cus_last_name]
-    # return jsonify(products)
 
 
 @app.route('/pet-care', methods=['GET'])
@@ -214,7 +212,7 @@ def admin():
     if current_user.is_authenticated and current_user.user_type == 1:
         return render_template('admin.html', title='Admin Tasks')
     else:
-        flash("you are not permitted access", 'danger')
+        flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
@@ -242,22 +240,32 @@ def admin_update_product(prod_id):
             product.prod_cost = form.prod_cost.data
             product.quantity_available = form.quantity_available.data
             db.session.commit()
-            flash('product updated', 'success')
+            flash('Product updated', 'success')
             return redirect(url_for('all_products'))
         return render_template('admin-products-update.html', form=form, title='Admin Update Product')
     else:
-        flash("you are not permitted access", 'danger')
+        flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
 @app.route("/admin/orders/update/<ord_id>", methods=['GET', 'POST'])
 def admin_update_order(ord_id):
-    error = ""
-    order = service.get_admin_order(ord_id)
-    if not order:
-        error = "There is no order to display"
-    return render_template('admin-orders-update.html', order=order, message=error, title = "Admin Update Order")
-
+    if current_user.is_authenticated and current_user.user_type == 1:
+        form = AdminUpdateOrderForm()
+        order = service.get_admin_order(ord_id)
+        if request.method == 'GET':
+            form.collected.data = order.collected
+            form.collection_date.data = order.collection_date
+        if form.validate_on_submit():
+            order.collected = form.collected.data
+            order.collection_date = form.collection_date.data
+            db.session.commit()
+            flash('Order updated', 'success')
+            return redirect(url_for('all_orders'))
+        return render_template('admin-orders-update.html', form=form, title="Admin Update Order")
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 @app.route("/admin/customers/update/<cus_id>", methods=['GET', 'POST'])
 def admin_update_customer(cus_id):
@@ -275,11 +283,11 @@ def admin_update_customer(cus_id):
             user.address = form.address.data
             user.phone = form.phone.data
             db.session.commit()
-            flash('customer record updated', 'success')
+            flash('Customer details updated', 'success')
             return redirect(url_for('all_customers'))
         return render_template('admin-customers-update.html', form=form, title='Admin Update Customer Details')
     else:
-        flash("you are not permitted access", 'danger')
+        flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
@@ -309,11 +317,11 @@ def admin_update_patient(pat_id):
             patient.neutered_status = form.neutered_status.data
             patient.has_insurance = form.has_insurance.data
             db.session.commit()
-            flash("patient details updated", 'success')
+            flash("Patient details updated", 'success')
             return redirect(url_for('all_patients'))
         return render_template('admin-patients-update.html', title="Admin Update Patient Record", form=form)
     else:
-        flash("you are not permitted access", 'danger')
+        flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
@@ -327,11 +335,11 @@ def admin_add_product():
                               prod_cost=form.prod_cost.data, quantity_available=form.quantity_available.data)
             db.session.add(product)
             db.session.commit()
-            flash('new product added', 'success')
+            flash('New product added', 'success')
             return redirect(url_for('all_products'))
         return render_template('admin-products-add.html', form=form, title='Admin Add Product')
     else:
-        flash("you are not permitted access", 'danger')
+        flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 

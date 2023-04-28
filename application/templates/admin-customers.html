@@ -4,7 +4,7 @@
     <thead>
       <tr>
          <th>Update</th>
-        <th>id</th>
+        <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
@@ -19,7 +19,7 @@
       <tbody>
       {% for cus in customers %}
         <tr>
-          <td><a href="/admin/customers/update/{{ cus.cus_id }}">update record</a></td>
+          <td><a href="/admin/customers/update/{{ cus.cus_id }}">Update Record</a></td>
           <td>{{ cus.cus_id }}</td>
               <td>{{ cus.cus_first_name }}</td>
           <td>{{ cus.cus_last_name }}</td>

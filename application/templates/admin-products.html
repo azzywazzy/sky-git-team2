@@ -6,7 +6,7 @@
     <thead>
       <tr>
          <th>Update</th>
-        <th>id</th>
+        <th>Order ID</th>
         <th>Species</th>
         <th>Category</th>
         <th>Name</th>
@@ -20,7 +20,7 @@
       <tbody>
       {% for prod in products %}
         <tr>
-          <td><a href="/admin/products/update/{{ prod.product_id }}">update record</a></td>
+          <td><a href="/admin/products/update/{{ prod.product_id }}">Update Record</a></td>
           <td>{{ prod.product_id }}</td>
               <td>{{ prod.prod_species }}</td>
           <td>{{ prod.prod_category }}</td>

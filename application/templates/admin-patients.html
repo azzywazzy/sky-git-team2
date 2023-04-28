@@ -7,15 +7,15 @@
     <thead>
       <tr>
          <th>Update</th>
-        <th>id</th>
-        <th>Customer id</th>
-        <th>Customer Name</th>
+        <th>ID</th>
+        <th>Customer ID</th>
+        <th>Customer Last Name</th>
         <th>Patient Name</th>
         <th>Species</th>
         <th>Breed</th>
           <th>Sex</th>
           <th>DoB</th>
-          <th>Weight (kg)</th>
+          <th>Weight (g)</th>
          <th>Chip No.</th>
          <th>Neuter</th>
          <th>Insurance</th>
@@ -26,7 +26,7 @@
       <tbody>
       {% for pat in patients %}
         <tr>
-          <td><a href="/admin/patients/update/{{ pat.pat_id }}">update record</a></td>
+          <td><a href="/admin/patients/update/{{ pat.pat_id }}">Update Record</a></td>
           <td>{{ pat.pat_id }}</td>
               <td>{{ pat.cus_id }}</td>
           <td>{{ pat.cus_last_name }}</td>
@@ -35,7 +35,7 @@
             <td>{{ pat.breed  }}</td>
           <td>{{ pat.sex }}</td>
             <td>{{ pat.date_of_birth }}</td>
-            <td>{{ pat.weight / 1000 }} </td>
+            <td>{{ pat.weight }} </td>
             <td>{{ pat.chip_num }}</td>
             <td>{% if pat.neutered_status == 1 -%}
                     Y

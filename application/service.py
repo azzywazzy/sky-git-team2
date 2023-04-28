@@ -17,7 +17,7 @@ def get_all_patients():
     display_patients = db.session.query(Patient).all()
     for row in display_patients:
         customer = db.session.query(Customer).filter_by(cus_id=row.cus_id).first()
-        dict_info = {"pat_id": row.pat_id, "cus_id": row.cus_id, "pat_name": row.pat_name, "species": row.species, "breed": row.breed, "sex": row.sex, "date_of_birth": row.date_of_birth, "weight": row.weight, "chip_num": row.chip_num, "neutered_status": row.neutered_status, "has_insurance": row.has_insurance, "cus_last_name": customer.cus_last_name}
+        dict_info = {"pat_id": row.pat_id, "cus_id": row.cus_id, "pat_name": row.pat_name, "species": row.species.capitalize(), "breed": row.breed.capitalize(), "sex": row.sex.capitalize(), "date_of_birth": row.date_of_birth, "weight": row.weight, "chip_num": row.chip_num, "neutered_status": row.neutered_status, "has_insurance": row.has_insurance, "cus_last_name": customer.cus_last_name}
         full_patients.append(dict_info)
     return full_patients
 
@@ -28,7 +28,7 @@ def get_all_orders():
     for row in display_orders:
         customer = db.session.query(Customer).filter_by(cus_id=row.cus_id).first()
         product = db.session.query(Product).filter_by(product_id=row.product_id).first()
-        dict_info = {"order_id": row.order_id, "product_id": row.product_id, "cus_id": row.cus_id, "quantity_ordered": row.quantity_ordered, "order_date": row.order_date, "collection_date": row.collection_date, "collected": row.collected, "cus_last_name": customer.cus_last_name, "prod_name": product.prod_name}
+        dict_info = {"order_id": row.order_id, "product_id": row.product_id, "cus_id": row.cus_id, "quantity_ordered": row.quantity_ordered, "order_date": row.order_date, "collection_date": row.collection_date, "collected": row.collected, "cus_last_name": customer.cus_last_name, "prod_name": product.prod_name.capitalize()}
         full_orders.append(dict_info)
     return full_orders
 

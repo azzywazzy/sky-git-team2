@@ -32,7 +32,7 @@ class PatientRegistrationForm(FlaskForm):
     species = StringField('Species', validators=[DataRequired(), Length(min=1, max=20)])
     breed = StringField('Breed', validators=[Optional()])
     sex = SelectField('Sex', choices=['F', 'M'], validators=[Optional()])
-    date_of_birth = DateField('Date of Birth', format='%d/%m/%Y', validators=[Optional()])
+    date_of_birth = DateField('Date of Birth', validators=[Optional()])
     weight = IntegerField('Weight in Grammes', validators=[Optional()])
     chip_num = StringField('Chip number', validators=[Optional()])
     neutered_status = BooleanField('Neutered Status', validators=[Optional()])
@@ -45,7 +45,7 @@ class PatientUpdateForm(FlaskForm):
     species = StringField('Species', validators=[DataRequired(), Length(min=1, max=20)])
     breed = StringField('Breed', validators=[Optional()])
     sex = SelectField('Sex', choices=['F', 'M'], validators=[Optional()])
-    date_of_birth = DateField('Date of Birth', format='%d/%m/%Y', validators=[Optional()])
+    date_of_birth = DateField('Date of Birth', validators=[Optional()])
     weight = IntegerField('Weight in Grammes', validators=[Optional()])
     chip_num = StringField('Chip number', validators=[Optional()])
     neutered_status = BooleanField('Neutered Status', validators=[Optional()])
@@ -72,7 +72,7 @@ class AdminPatientUpdateForm(FlaskForm):
     species = StringField('Species', validators=[DataRequired(), Length(min=1, max=20)])
     breed = StringField('Breed', validators=[Optional()])
     sex = SelectField('Sex', choices=['F', 'M'], validators=[Optional()])
-    date_of_birth = DateField('Date of Birth', format='%d/%m/%Y', validators=[Optional()])
+    date_of_birth = DateField('Date of Birth', validators=[Optional()])
     weight = IntegerField('Weight in Grammes', validators=[Optional()])
     chip_num = StringField('Chip number', validators=[Optional()])
     neutered_status = BooleanField('Neutered Status', validators=[Optional()])
@@ -89,8 +89,8 @@ class AdminUpdateCustomerForm(FlaskForm):
 
 class AdminUpdateProductForm(FlaskForm):
     prod_name = StringField('Name', validators=[Length(min=1, max=50)])
-    prod_species = SelectField('Species', choices=[("cat", "cat"), ("dog", "dog"), ("farm", "farm"),  ("small animal", "small animal"), ("reptile", "reptile"), ("other", "other")])
-    prod_category = SelectField('Category', choices=[("accessories", "accessories"), ("food", "food"), ("medication", "medication"),  ("toiletries", "toiletries"), ("toys", "toys")])
+    prod_species = SelectField('Species', choices=[("Cat", "Cat"), ("Dog", "Dog"), ("Farm", "Farm"),  ("Small animal", "Small animal"), ("Reptile", "Reptile"), ("Other", "Other")])
+    prod_category = SelectField('Category', choices=[("Accessories", "Accessories"), ("Food", "Food"), ("Medication", "Medication"),  ("Toiletries", "Toiletries"), ("Toys", "Toys")])
     prod_description = TextAreaField('Description')
     prod_cost = IntegerField('Cost')
     quantity_available = IntegerField('Quantity Available')
@@ -99,9 +99,15 @@ class AdminUpdateProductForm(FlaskForm):
 
 class AdminAddProductForm(FlaskForm):
     prod_name = StringField('Name', validators=[Length(min=1, max=50)])
-    prod_species = SelectField('Species', choices=[("cat", "cat"), ("dog", "dog"), ("farm", "farm"),  ("small animal", "small animal"), ("reptile", "reptile"), ("other", "other")])
-    prod_category = SelectField('Category', choices=[("accessories", "accessories"), ("food", "food"), ("medication", "medication"),  ("toiletries", "toiletries"), ("toys", "toys")])
+    prod_species = SelectField('Species', choices=[("Cat", "Cat"), ("Dog", "Dog"), ("Farm", "Farm"),  ("Small animal", "Small animal"), ("Reptile", "Reptile"), ("Other", "Other")])
+    prod_category = SelectField('Category', choices=[("Accessories", "Accessories"), ("Food", "Food"), ("Medication", "Medication"),  ("Toiletries", "Toiletries"), ("Toys", "Toys")])
     prod_description = TextAreaField('Description')
     prod_cost = IntegerField('Cost')
     quantity_available = IntegerField('Quantity Available')
+    submit = SubmitField('Save Changes')
+
+
+class AdminUpdateOrderForm(FlaskForm):
+    collected = BooleanField('Collected', validators=[Optional()])
+    collection_date = DateField('Collection date', validators=[Optional()])
     submit = SubmitField('Save Changes')
