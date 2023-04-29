@@ -3,15 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 #from application.forms import RegistrationForm, LoginForm
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap5
 
 
-user = 'workbench'
+user = 'root'
 password = 'password'
 host = '127.0.0.1'
 port = 3306
-database = 'Surgery'
+database = 'surgery'
 
 app = Flask(__name__)
+bootstrap = Bootstrap5(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://{0}:{1}@{2}:{3}/{4}".format(
     user, password, host, port, database)

@@ -13,5 +13,6 @@ CREATE TABLE patient(
     neutered_status tinyint,
     has_insurance tinyint,
     foreign key (cus_id) references customer(cus_id) on delete cascade
-)
+);
+
 

@@ -13,10 +13,5 @@ insert into credential values (3, "MRai@vets.com", "1", "ldskjf;l89sdfskhj");
 insert into credential values (4, "fayequinn@email.com", "0", ";lksaf;lakopim;gd;l");
 
 
-<<<<<<< Updated upstream
-drop table credential;
+select * from credential;
 
-=======
-Select * from credential;
-Select * from customer
->>>>>>> Stashed changes

@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-04-22T10:05:22.309Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="TktuAn6-UMm2HOiiQ8sJ" version="21.2.1" type="device">
+<mxfile host="app.diagrams.net" modified="2023-04-28T10:49:28.044Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="uqyoFEU0p517v76gdS5d" version="21.2.3" type="device">
   <diagram name="Page-1" id="03018318-947c-dd8e-b7a3-06fadd420f32">
-    <mxGraphModel dx="1034" dy="430" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1034" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -10,17 +10,8 @@
         <mxCell id="677b7b8949515195-8" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;align=center;comic=1;" parent="1" vertex="1">
           <mxGeometry x="30" y="30" width="140" height="700" as="geometry" />
         </mxCell>
-        <mxCell id="677b7b8949515195-15" value="Reviews/testimonials" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;align=center;verticalAlign=top;spacing=10;comic=1;" parent="1" vertex="1">
-          <mxGeometry x="180" y="447" width="390" height="180" as="geometry" />
-        </mxCell>
-        <mxCell id="677b7b8949515195-26" value="&lt;div&gt;Opening Hours&lt;/div&gt;&lt;div&gt;Phone Number&lt;/div&gt;&lt;div&gt;Map&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;align=center;comic=1;" parent="1" vertex="1">
-          <mxGeometry x="820" y="447" width="230" height="180" as="geometry" />
-        </mxCell>
         <mxCell id="qz_svecnsdqs3by7-r_0-2" value="Vet Clinic Name" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=28;align=center;comic=1;" parent="1" vertex="1">
           <mxGeometry x="190" y="40" width="680" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="qz_svecnsdqs3by7-r_0-7" value="Picture of us as vets" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12;align=center;comic=1;" parent="1" vertex="1">
-          <mxGeometry x="580" y="447" width="230" height="180" as="geometry" />
         </mxCell>
         <mxCell id="qz_svecnsdqs3by7-r_0-8" value="" style="whiteSpace=wrap;html=1;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=28;align=center;comic=1;" parent="1" vertex="1">
           <mxGeometry x="180" y="640" width="870" height="60" as="geometry" />
@@ -230,7 +221,7 @@
             <mxRectangle width="66" height="19" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="I-E6kyW4S_tJjS1NKi3--4" value="converted to £" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;" vertex="1" parent="YpGhRkBLHknayNMrXKQS-324">
+        <mxCell id="I-E6kyW4S_tJjS1NKi3--4" value="converted to £" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;" parent="YpGhRkBLHknayNMrXKQS-324" vertex="1">
           <mxGeometry x="53" y="8" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="YpGhRkBLHknayNMrXKQS-325" value="" style="swimlane;swimlaneHead=0;swimlaneBody=0;fontStyle=0;connectable=0;strokeColor=inherit;fillColor=none;startSize=0;collapsible=0;recursiveResize=0;expand=0;" parent="YpGhRkBLHknayNMrXKQS-322" vertex="1">

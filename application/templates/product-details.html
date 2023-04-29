@@ -1,0 +1,27 @@
+{% from 'bootstrap5/form.html' import render_form %}
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+<div>
+
+</div>
+<p>
+{{ product_info.prod_name }}
+    </p>
+<img src="/static/images/{{ product_info.prod_image }}">
+<p>
+{{ product_info.prod_description }}
+</p>
+<p>
+£ {{ product_info.prod_cost/100 }}
+</p>
+<p>
+Amount currently in stock:  {{ product_info.quantity_available }}
+</p>
+
+    <div class="content-section">
+        {{ render_form(form) }}
+    </div>
+{% endblock content %}
