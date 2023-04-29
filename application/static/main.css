@@ -17,62 +17,69 @@ h6 {
   background-color: #5f788a;
 }
 
-/* Style the links inside the sidenav */
 #mySidenav a {
   position: absolute;
-  /* Position them relative to the browser window */
+
   left: -80px;
-  /* Position them outside of the screen */
+
   transition: 0.3s;
-  /* Add transition on hover */
-  padding: 15px;
-  /* 15px padding */
+
+  padding: 10px;
+
   width: 100px;
-  /* Set a specific width */
+
   text-decoration: none;
-  /* Remove underline */
   font-size: 20px;
-  /* Increase font size */
+
   color: white;
-  /* White text color */
+
   border-radius: 0 5px 5px 0;
-  /* Rounded corners on the top right and bottom right side */
 }
 
 #mySidenav a:hover {
   left: 0;
-  /* On mouse-over, make the elements appear as they should */
 }
 
-/* The about link: 20px from the top with a green background */
 #home {
   top: 20px;
   background-color: #74fecc;
-  /* green */
 }
 
 #about-us {
   top: 90px;
   background-color: #6bb7f5;
-  /* blue */
 }
 
 #products {
-  top: 190px;
+  top: 160px;
   background-color: #a694fe;
-  /* purple */
-}
-
-#account {
-  top: 260px;
-  background-color: #f3a2ff;
-  /* pink */
 }
 
 #pet-advice {
-  top: 330px;
-  background-color: #f9b2b2;
-  /* orange */
+  top: 230px;
+  background-color: #f9b2f2;
+}
+
+#account {
+  top: 430px;
+  background-color: #74fecc;
+}
+#logout {
+  top: 500px;
+  background-color: #f176d8;
+}
+#login {
+  top: 430px;
+  background-color: #6bb7f5;
+}
+#register {
+  top: 500px;
+  background-color: #a694fe;
+}
+
+#admin {
+  top: 600px;
+  background-color: #5a0aa1;
 }
 
 .content-section {
@@ -105,7 +112,7 @@ a.article-title:hover {
 .article-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
+  border-bottom: 1px solid #e3e3e3;
 }
 
 .article-metadata a:hover {
@@ -129,3 +136,4 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
