@@ -5,13 +5,13 @@ from application.models.customer import Customer
 
 
 class RegistrationForm(FlaskForm):
-    cus_first_name = StringField('First Name', validators=[DataRequired(), Length(min=1, max=20)])
-    cus_last_name = StringField('Last Name', validators=[DataRequired(), Length(min=1, max=20)])
-    cus_email = StringField('Email', validators=[DataRequired(), Email()])
-    address = StringField('Address', validators=[DataRequired()])
-    phone = IntegerField('Phone Number', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    cus_first_name = StringField('First Name*', validators=[DataRequired(), Length(min=1, max=20)])
+    cus_last_name = StringField('Last Name*', validators=[DataRequired(), Length(min=1, max=20)])
+    cus_email = StringField('Email*', validators=[DataRequired(), Email()])
+    address = StringField('Address*', validators=[DataRequired()])
+    phone = IntegerField('Phone Number*', validators=[DataRequired()])
+    password = PasswordField('Password*', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password*', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
     def validate_cus_email(self, cus_email):
@@ -28,8 +28,8 @@ class LoginForm(FlaskForm):
 
 
 class PatientRegistrationForm(FlaskForm):
-    pat_name = StringField('Pet Name', validators=[DataRequired(), Length(min=1, max=20)])
-    species = StringField('Species', validators=[DataRequired(), Length(min=1, max=20)])
+    pat_name = StringField('Pet Name*', validators=[DataRequired(), Length(min=1, max=20)])
+    species = StringField('Species*', validators=[DataRequired(), Length(min=1, max=20)])
     breed = StringField('Breed', validators=[Optional()])
     sex = SelectField('Sex', choices=['F', 'M'], validators=[Optional()])
     date_of_birth = DateField('Date of Birth', validators=[Optional()])
@@ -41,8 +41,8 @@ class PatientRegistrationForm(FlaskForm):
 
 
 class PatientUpdateForm(FlaskForm):
-    pat_name = StringField('Pet Name', validators=[DataRequired(), Length(min=1, max=20)])
-    species = StringField('Species', validators=[DataRequired(), Length(min=1, max=20)])
+    pat_name = StringField('Pet Name*', validators=[DataRequired(), Length(min=1, max=20)])
+    species = StringField('Species*', validators=[DataRequired(), Length(min=1, max=20)])
     breed = StringField('Breed', validators=[Optional()])
     sex = SelectField('Sex', choices=['F', 'M'], validators=[Optional()])
     date_of_birth = DateField('Date of Birth', validators=[Optional()])
@@ -54,22 +54,23 @@ class PatientUpdateForm(FlaskForm):
 
 
 class UpdatePasswordForm(FlaskForm):
-    old_password = PasswordField('Old Password', validators=[DataRequired()])
-    new_password = PasswordField('New Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('new_password')])
+    old_password = PasswordField('Old Password*', validators=[DataRequired()])
+    new_password = PasswordField('New Password*', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password*', validators=[DataRequired(), EqualTo('new_password')])
     submit = SubmitField('Save Changes')
 
 
 class UpdateCustomerForm(FlaskForm):
-    cus_first_name = StringField('First Name', validators=[Length(min=1, max=20)])
-    cus_last_name = StringField('Last Name', validators=[Length(min=1, max=20)])
-    address = StringField('Address')
-    phone = IntegerField('Phone Number')
-    submit = SubmitField('Save Changes')
+    cus_first_name = StringField('First Name*', validators=[Length(min=1, max=20)])
+    cus_last_name = StringField('Last Name*', validators=[Length(min=1, max=20)])
+    address = StringField('Address*')
+    phone = IntegerField('Phone Number*')
+    submit = SubmitField('Save Changes*')
+
 
 class AdminPatientUpdateForm(FlaskForm):
-    pat_name = StringField('Pet Name', validators=[DataRequired(), Length(min=1, max=20)])
-    species = StringField('Species', validators=[DataRequired(), Length(min=1, max=20)])
+    pat_name = StringField('Pet Name*', validators=[DataRequired(), Length(min=1, max=20)])
+    species = StringField('Species*', validators=[DataRequired(), Length(min=1, max=20)])
     breed = StringField('Breed', validators=[Optional()])
     sex = SelectField('Sex', choices=['F', 'M'], validators=[Optional()])
     date_of_birth = DateField('Date of Birth', validators=[Optional()])
@@ -79,36 +80,37 @@ class AdminPatientUpdateForm(FlaskForm):
     has_insurance = BooleanField('Has Insurance', validators=[Optional()])
     submit = SubmitField('Save Changes')
 
+
 class AdminUpdateCustomerForm(FlaskForm):
-    cus_first_name = StringField('First Name', validators=[Length(min=1, max=20)])
-    cus_last_name = StringField('Last Name', validators=[Length(min=1, max=20)])
-    address = StringField('Address')
-    phone = IntegerField('Phone Number')
-    submit = SubmitField('Save Changes')
+    cus_first_name = StringField('First Name*', validators=[Length(min=1, max=20)])
+    cus_last_name = StringField('Last Name*', validators=[Length(min=1, max=20)])
+    address = StringField('Address*')
+    phone = IntegerField('Phone Number*')
+    submit = SubmitField('Save Changes*')
 
 
 class AdminUpdateProductForm(FlaskForm):
-    prod_name = StringField('Name', validators=[Length(min=1, max=50)])
-    prod_species = SelectField('Species', choices=[("Cat", "Cat"), ("Dog", "Dog"), ("Farm", "Farm"),  ("Small animal", "Small animal"), ("Reptile", "Reptile"), ("Other", "Other")])
-    prod_category = SelectField('Category', choices=[("Accessories", "Accessories"), ("Food", "Food"), ("Medication", "Medication"),  ("Toiletries", "Toiletries"), ("Toys", "Toys")])
-    prod_description = TextAreaField('Description')
-    prod_cost = IntegerField('Cost')
-    quantity_available = IntegerField('Quantity Available')
+    prod_name = StringField('Name*', validators=[Length(min=1, max=50)])
+    prod_species = SelectField('Species*', choices=[("Cat", "Cat"), ("Dog", "Dog"), ("Farm", "Farm"),  ("Small animal", "Small animal"), ("Reptile", "Reptile"), ("Other", "Other")])
+    prod_category = SelectField('Category*', choices=[("Accessories", "Accessories"), ("Food", "Food"), ("Medication", "Medication"),  ("Toiletries", "Toiletries"), ("Toys", "Toys")])
+    prod_description = TextAreaField('Description', validators=[Optional()])
+    prod_cost = IntegerField('Cost*')
+    quantity_available = IntegerField('Quantity Available*')
     submit = SubmitField('Save Changes')
 
 
 class AdminAddProductForm(FlaskForm):
-    prod_name = StringField('Name', validators=[Length(min=1, max=50)])
-    prod_species = SelectField('Species', choices=[("Cat", "Cat"), ("Dog", "Dog"), ("Farm", "Farm"),  ("Small animal", "Small animal"), ("Reptile", "Reptile"), ("Other", "Other")])
-    prod_category = SelectField('Category', choices=[("Accessories", "Accessories"), ("Food", "Food"), ("Medication", "Medication"),  ("Toiletries", "Toiletries"), ("Toys", "Toys")])
-    prod_description = TextAreaField('Description')
-    prod_cost = IntegerField('Cost')
-    quantity_available = IntegerField('Quantity Available')
+    prod_name = StringField('Name*', validators=[Length(min=1, max=50)])
+    prod_species = SelectField('Species*', choices=[("Cat", "Cat"), ("Dog", "Dog"), ("Farm", "Farm"),  ("Small animal", "Small animal"), ("Reptile", "Reptile"), ("Other", "Other")])
+    prod_category = SelectField('Category*', choices=[("Accessories", "Accessories"), ("Food", "Food"), ("Medication", "Medication"),  ("Toiletries", "Toiletries"), ("Toys", "Toys")])
+    prod_description = TextAreaField('Description', validators=[Optional()])
+    prod_cost = IntegerField('Cost*')
+    quantity_available = IntegerField('Quantity Available*')
     submit = SubmitField('Save Changes')
 
 
 class ProductOrderForm(FlaskForm):
-    order_quantity = IntegerField('Quantity Required')
+    order_quantity = IntegerField('Quantity Required*')
     submit = SubmitField('Place Order')
 
 

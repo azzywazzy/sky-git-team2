@@ -34,7 +34,7 @@ def login():
         if user and bcrypt.check_password_hash(user.hash_password, form.hash_password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('account'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -68,93 +68,117 @@ def register():
 
 @app.route("/update-customer", methods=['GET', 'POST'])
 def update_customer():
-    user = Customer.query.filter_by(cus_email=current_user.email).first()
-    form = UpdateCustomerForm()
-    if request.method == 'GET':
-        form.cus_first_name.data = user.cus_first_name
-        form.cus_last_name.data = user.cus_last_name
-        form.address.data = user.address
-        form.phone.data = user.phone
-    if form.validate_on_submit():
-        user.cus_first_name = form.cus_first_name.data
-        user.cus_last_name = form.cus_last_name.data
-        user.address = form.address.data
-        user.phone = form.phone.data
-        db.session.commit()
-        flash('Your account details have been updated!', 'success')
-        return redirect(url_for('account'))
-    return render_template('update_customer.html', title='Update-customer', form=form)
+    if current_user.is_authenticated:
+        user = Customer.query.filter_by(cus_email=current_user.email).first()
+        form = UpdateCustomerForm()
+        if request.method == 'GET':
+            form.cus_first_name.data = user.cus_first_name
+            form.cus_last_name.data = user.cus_last_name
+            form.address.data = user.address
+            form.phone.data = user.phone
+        if form.validate_on_submit():
+            user.cus_first_name = form.cus_first_name.data
+            user.cus_last_name = form.cus_last_name.data
+            user.address = form.address.data
+            user.phone = form.phone.data
+            db.session.commit()
+            flash('Your account details have been updated!', 'success')
+            return redirect(url_for('account'))
+        return render_template('update_customer.html', title='Update-customer', form=form)
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route("/update-password", methods=['GET', 'POST'])
 def update_password():
-    form = UpdatePasswordForm()
-    credential = Credential.query.get(current_user.id)
-    if form.validate_on_submit():
-        if bcrypt.check_password_hash(credential.hash_password, form.old_password.data):
-            credential.hash_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
-        db.session.commit()
-        flash('Your password has been updated!', 'success')
-        return redirect(url_for('account'))
-    return render_template('update_password.html', title='Update-password', form=form)
+    if current_user.is_authenticated:
+        form = UpdatePasswordForm()
+        credential = Credential.query.get(current_user.id)
+        if form.validate_on_submit():
+            if bcrypt.check_password_hash(credential.hash_password, form.old_password.data):
+                credential.hash_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
+            db.session.commit()
+            flash('Your password has been updated!', 'success')
+            return redirect(url_for('account'))
+        return render_template('update_password.html', title='Update-password', form=form)
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route("/register-pet", methods=['GET', 'POST'])
 def register_patient():
-    form = PatientRegistrationForm()
-    if form.validate_on_submit():
-        user = Customer.query.filter_by(cus_email=current_user.email).first()
-        patient = Patient(cus_id=user.cus_id, pat_name=form.pat_name.data, species=form.species.data,
-                          breed=form.breed.data, sex=form.sex.data, date_of_birth=form.date_of_birth.data,
-                          weight=form.weight.data, chip_num=form.chip_num.data,
-                          neutered_status=form.neutered_status.data,
-                          has_insurance=form.has_insurance.data, )
-        db.session.add(patient)
-        db.session.commit()
-        flash('You have successfully added a pet!', 'success')
-        return redirect(url_for('account'))
-    return render_template('register_pet.html', title='Register Pet', form=form)
+    if current_user.is_authenticated:
+        form = PatientRegistrationForm()
+        if form.validate_on_submit():
+            user = Customer.query.filter_by(cus_email=current_user.email).first()
+            patient = Patient(cus_id=user.cus_id, pat_name=form.pat_name.data, species=form.species.data,
+                              breed=form.breed.data, sex=form.sex.data, date_of_birth=form.date_of_birth.data,
+                              weight=form.weight.data, chip_num=form.chip_num.data,
+                              neutered_status=form.neutered_status.data,
+                              has_insurance=form.has_insurance.data, )
+            db.session.add(patient)
+            db.session.commit()
+            flash('You have successfully added a pet!', 'success')
+            return redirect(url_for('account'))
+        return render_template('register_pet.html', title='Register Pet', form=form)
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route("/update-pet/<pat_id>", methods=['GET', 'POST'])
 def update_patient(pat_id):
-    form = PatientUpdateForm()
-    user = Customer.query.filter_by(cus_email=current_user.email).first()
-    patient = Patient.query.get(pat_id)
-    if request.method == 'GET':
-        form.pat_name.data = patient.pat_name
-        form.species.data = patient.species
-        form.breed.data = patient.breed
-        form.sex.data = patient.sex
-        form.date_of_birth.data = patient.date_of_birth
-        form.weight.data = patient.weight
-        form.chip_num.data = patient.chip_num
-        form.neutered_status.data = patient.neutered_status
-        form.has_insurance.data = patient.has_insurance
-    if form.validate_on_submit():
-        patient.cus_id = user.cus_id
-        patient.pat_name = form.pat_name.data
-        patient.species = form.species.data
-        patient.breed = form.breed.data
-        patient.sex = form.sex.data
-        patient.date_of_birth = form.date_of_birth.data
-        patient.weight = form.weight.data
-        patient.chip_num = form.chip_num.data
-        patient.neutered_status = form.neutered_status.data
-        patient.has_insurance = form.has_insurance.data
-        db.session.commit()
-        flash("You have successfully updated your pet's details!", 'success')
-        return redirect(url_for('account'))
-    return render_template('update_pet.html', title='Update Pet', form=form)
+    if current_user.is_authenticated:
+        form = PatientUpdateForm()
+        user = Customer.query.filter_by(cus_email=current_user.email).first()
+        patient = Patient.query.get(pat_id)
+        if request.method == 'GET':
+            form.pat_name.data = patient.pat_name
+            form.species.data = patient.species.capitalize()
+            form.breed.data = patient.breed.capitalize()
+            form.sex.data = patient.sex
+            form.date_of_birth.data = patient.date_of_birth
+            form.weight.data = patient.weight
+            form.chip_num.data = patient.chip_num
+            form.neutered_status.data = patient.neutered_status
+            form.has_insurance.data = patient.has_insurance
+        if form.validate_on_submit():
+            patient.cus_id = user.cus_id
+            patient.pat_name = form.pat_name.data
+            patient.species = form.species.data
+            patient.breed = form.breed.data
+            patient.sex = form.sex.data
+            patient.date_of_birth = form.date_of_birth.data
+            patient.weight = form.weight.data
+            patient.chip_num = form.chip_num.data
+            patient.neutered_status = form.neutered_status.data
+            patient.has_insurance = form.has_insurance.data
+            db.session.commit()
+            flash("You have successfully updated your pet's details!", 'success')
+            return redirect(url_for('account'))
+        return render_template('update_pet.html', title='Update Pet', form=form)
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route("/account")
 @login_required
 def account():
-    user = Customer.query.filter_by(cus_email=current_user.email).first()
-    patients = Patient.query.filter_by(cus_id=user.cus_id).all()
-    orders = OrderHistory.query.filter_by(cus_id=user.cus_id).all()
-    return render_template('account.html', user=user, patients=patients, orders=orders, title='Account')
+    if current_user.is_authenticated:
+        user = Customer.query.filter_by(cus_email=current_user.email).first()
+        patients = Patient.query.filter_by(cus_id=user.cus_id).all()
+        for p in patients:
+            p.species = p.species.capitalize()
+            p.breed = p.breed.capitalize()
+            p.sex = p.sex.capitalize()
+        orders = OrderHistory.query.filter_by(cus_id=user.cus_id).all()
+        return render_template('account.html', user=user, patients=patients, orders=orders, title='Account')
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route("/admin/customers", methods=['GET'])
@@ -165,6 +189,9 @@ def all_customers():
         if len(customers) == 0:
             error = "There are no customers to display"
         return render_template('admin-customers.html', customers=customers, message=error, title="Admin View all Customers")
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route("/admin/orders", methods=['GET'])
@@ -175,6 +202,9 @@ def all_orders():
         if len(orders) == 0:
             error = "There are no orders to display"
         return render_template('admin-orders.html', orders=orders, message=error, title = "Admin View all Orders")
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route("/admin/patients", methods=['GET'])
@@ -185,6 +215,9 @@ def all_patients():
         if len(patients) == 0:
             error = "There are no patients to display"
         return render_template('admin-patients.html', patients=patients, message=error, title = "Admin View all Patients")
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route('/admin/products', methods=['GET'])
@@ -194,15 +227,10 @@ def all_products():
         products = service.get_all_products()
         if len(products) == 0:
             error = "There are no products to display"
-        return render_template('admin-products.html', products=products, message=error, title = "Admin View all Products")
-
-
-# just trialling using the current_user value - you need to be logged in as someone for it to work
-@app.route("/trial", methods=['GET'])
-def trial():
-    if current_user.is_authenticated:
-        user = Customer.query.filter_by(cus_email=current_user.email).first()
-        return [user.cus_email, user.cus_first_name, user.cus_last_name]
+        return render_template('admin-products.html', products=products, message=error, title="Admin View all Products")
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 @app.route('/pet-care', methods=['GET'])
@@ -220,13 +248,14 @@ def admin():
     if current_user.is_authenticated and current_user.user_type == 1:
         return render_template('admin.html', title='Admin Tasks')
     else:
-        flash("you are not permitted access", 'danger')
+        flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
 @app.route('/contact-us', methods=['GET'])
 def contact_us():
     return render_template('contact_us.html')
+
 
 @app.route("/admin/products/update/<prod_id>", methods=['GET', 'POST'])
 def admin_update_product(prod_id):
@@ -248,11 +277,11 @@ def admin_update_product(prod_id):
             product.prod_cost = form.prod_cost.data
             product.quantity_available = form.quantity_available.data
             db.session.commit()
-            flash('product updated', 'success')
+            flash('Product updated', 'success')
             return redirect(url_for('all_products'))
         return render_template('admin-products-update.html', form=form, title='Admin Update Product')
     else:
-        flash("you are not permitted access", 'danger')
+        flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
@@ -274,6 +303,7 @@ def admin_update_order(ord_id):
     else:
         flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
+
 
 @app.route("/admin/customers/update/<cus_id>", methods=['GET', 'POST'])
 def admin_update_customer(cus_id):
@@ -306,8 +336,8 @@ def admin_update_patient(pat_id):
         patient = service.get_admin_patient(pat_id)
         if request.method == 'GET':
             form.pat_name.data = patient.pat_name
-            form.species.data = patient.species
-            form.breed.data = patient.breed
+            form.species.data = patient.species.capitalize()
+            form.breed.data = patient.breed.capitalize()
             form.sex.data = patient.sex
             form.date_of_birth.data = patient.date_of_birth
             form.weight.data = patient.weight
@@ -362,17 +392,20 @@ def view_products():
 
 @app.route("/admin/products/details/<prod_id>", methods=['GET', 'POST'])
 def product_detail(prod_id):
-    form = ProductOrderForm()
-    product_info, customer = service.get_prod_cust(prod_id)
-    if form.validate_on_submit():
-        order = OrderHistory(product_id=product_info.product_id, cus_id=customer.cus_id, quantity_ordered=form.order_quantity.data,
-                             order_date=date.today(), collected=0, collection_date=date.today() + timedelta(days=5))
-        db.session.add(order)
-        db.session.commit()
-        flash('ordered placed! you have been emailed confirmation', 'success')
-        return redirect(url_for('view_products'))
-    return render_template('product-details.html', product_info=product_info, form=form, title='Product Details')
-
+    if current_user.is_authenticated:
+        form = ProductOrderForm()
+        product_info, customer = service.get_prod_cust(prod_id)
+        if form.validate_on_submit():
+            order = OrderHistory(product_id=product_info.product_id, cus_id=customer.cus_id, quantity_ordered=form.order_quantity.data,
+                                 order_date=date.today(), collected=0, collection_date=date.today() + timedelta(days=5))
+            db.session.add(order)
+            db.session.commit()
+            flash('Ordered placed. You have been emailed confirmation.', 'success')
+            return redirect(url_for('view_products'))
+        return render_template('product-details.html', product_info=product_info, form=form, title='Product Details')
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 
 
