@@ -3,6 +3,7 @@ from application.models.patient import Patient
 from application.models.order_history import OrderHistory
 from application.models.product import Product
 from application.models.vet_personnel import VetPersonnel
+from flask_login import current_user
 
 from application import db, login_manager
 from flask_login import UserMixin
@@ -51,3 +52,9 @@ def get_admin_customer(cus_id):
 
 def get_admin_patient(pat_id):
     return Patient.query.filter_by(pat_id=pat_id).first()
+
+
+def get_prod_cust(prod_id):
+    product = Product.query.filter_by(product_id=prod_id).first()
+    customer = Customer.query.filter_by(cus_email=current_user.email).first()
+    return product, customer

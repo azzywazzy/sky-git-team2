@@ -107,6 +107,11 @@ class AdminAddProductForm(FlaskForm):
     submit = SubmitField('Save Changes')
 
 
+class ProductOrderForm(FlaskForm):
+    order_quantity = IntegerField('Quantity Required')
+    submit = SubmitField('Place Order')
+
+
 class AdminUpdateOrderForm(FlaskForm):
     collected = BooleanField('Collected', validators=[Optional()])
     collection_date = DateField('Collection date', validators=[Optional()])

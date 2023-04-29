@@ -5,7 +5,7 @@ from wtforms.validators import Optional, Length
 from application import app, service, db, bcrypt, login_manager
 from application.forms import RegistrationForm, LoginForm, PatientRegistrationForm, PatientUpdateForm, \
     UpdateCustomerForm, UpdatePasswordForm, AdminPatientUpdateForm, AdminUpdateCustomerForm, AdminUpdateProductForm, \
-    AdminAddProductForm, AdminUpdateOrderForm
+    AdminAddProductForm, AdminUpdateOrderForm, ProductOrderForm
 from flask_bcrypt import Bcrypt
 from application.models.customer import Customer
 from application.models.patient import Patient
@@ -15,6 +15,7 @@ from application.models.product import Product
 from application.models.vet_personnel import VetPersonnel
 from application.models.credential import Credential
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import date, timedelta
 
 
 @app.route('/')
@@ -80,7 +81,7 @@ def update_customer():
         user.address = form.address.data
         user.phone = form.phone.data
         db.session.commit()
-        flash('Your account details have been updated', 'success')
+        flash('Your account details have been updated!', 'success')
         return redirect(url_for('account'))
     return render_template('update_customer.html', title='Update-customer', form=form)
 
@@ -93,7 +94,7 @@ def update_password():
         if bcrypt.check_password_hash(credential.hash_password, form.old_password.data):
             credential.hash_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
         db.session.commit()
-        flash('Your password has been updated', 'success')
+        flash('Your password has been updated!', 'success')
         return redirect(url_for('account'))
     return render_template('update_password.html', title='Update-password', form=form)
 
@@ -110,13 +111,14 @@ def register_patient():
                           has_insurance=form.has_insurance.data, )
         db.session.add(patient)
         db.session.commit()
-        flash('You have successfully added a pet', 'success')
+        flash('You have successfully added a pet!', 'success')
         return redirect(url_for('account'))
     return render_template('register_pet.html', title='Register Pet', form=form)
 
 
-@app.route("/update-pet/<pat_id>", methods=['GET', 'POST'])
-def update_patient(pat_id):
+@app.route("/update-pet", methods=['GET', 'POST'])
+def update_patient():
+    pat_id = request.args.get('pat_id')
     form = PatientUpdateForm()
     user = Customer.query.filter_by(cus_email=current_user.email).first()
     patient = Patient.query.get(pat_id)
@@ -142,7 +144,7 @@ def update_patient(pat_id):
         patient.neutered_status = form.neutered_status.data
         patient.has_insurance = form.has_insurance.data
         db.session.commit()
-        flash("You have successfully updated your pet's details", 'success')
+        flash("You have successfully updated your pet's details!", 'success')
         return redirect(url_for('account'))
     return render_template('update_pet.html', title='Update Pet', form=form)
 
@@ -155,38 +157,42 @@ def account():
 
 @app.route("/admin/customers", methods=['GET'])
 def all_customers():
-    error = ""
-    customers = service.get_all_customers()
-    if len(customers) == 0:
-        error = "There are no customers to display"
-    return render_template('admin-customers.html', customers=customers, message=error, title = "Admin View all Customers")
+    if current_user.is_authenticated and current_user.user_type == 1:
+        error = ""
+        customers = service.get_all_customers()
+        if len(customers) == 0:
+            error = "There are no customers to display"
+        return render_template('admin-customers.html', customers=customers, message=error, title = "Admin View all Customers")
 
 
 @app.route("/admin/orders", methods=['GET'])
 def all_orders():
-    error = ""
-    orders = service.get_all_orders()
-    if len(orders) == 0:
-        error = "There are no orders to display"
-    return render_template('admin-orders.html', orders=orders, message=error, title = "Admin View all Orders")
+    if current_user.is_authenticated and current_user.user_type == 1:
+        error = ""
+        orders = service.get_all_orders()
+        if len(orders) == 0:
+            error = "There are no orders to display"
+        return render_template('admin-orders.html', orders=orders, message=error, title = "Admin View all Orders")
 
 
 @app.route("/admin/patients", methods=['GET'])
 def all_patients():
-    error = ""
-    patients = service.get_all_patients()
-    if len(patients) == 0:
-        error = "There are no patients to display"
-    return render_template('admin-patients.html', patients=patients, message=error, title = "Admin View all Patients")
+    if current_user.is_authenticated and current_user.user_type == 1:
+        error = ""
+        patients = service.get_all_patients()
+        if len(patients) == 0:
+            error = "There are no patients to display"
+        return render_template('admin-patients.html', patients=patients, message=error, title = "Admin View all Patients")
 
 
 @app.route('/admin/products', methods=['GET'])
 def all_products():
-    error = ""
-    products = service.get_all_products()
-    if len(products) == 0:
-        error = "There are no products to display"
-    return render_template('admin-products.html', products=products, message=error, title = "Admin View all Products")
+    if current_user.is_authenticated and current_user.user_type == 1:
+        error = ""
+        products = service.get_all_products()
+        if len(products) == 0:
+            error = "There are no products to display"
+        return render_template('admin-products.html', products=products, message=error, title = "Admin View all Products")
 
 
 # just trialling using the current_user value - you need to be logged in as someone for it to work
@@ -195,6 +201,7 @@ def trial():
     if current_user.is_authenticated:
         user = Customer.query.filter_by(cus_email=current_user.email).first()
         return [user.cus_email, user.cus_first_name, user.cus_last_name]
+    # return jsonify(products)
 
 
 @app.route('/pet-care', methods=['GET'])
@@ -212,7 +219,7 @@ def admin():
     if current_user.is_authenticated and current_user.user_type == 1:
         return render_template('admin.html', title='Admin Tasks')
     else:
-        flash("You are not permitted access", 'danger')
+        flash("you are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
@@ -240,32 +247,22 @@ def admin_update_product(prod_id):
             product.prod_cost = form.prod_cost.data
             product.quantity_available = form.quantity_available.data
             db.session.commit()
-            flash('Product updated', 'success')
+            flash('product updated', 'success')
             return redirect(url_for('all_products'))
         return render_template('admin-products-update.html', form=form, title='Admin Update Product')
     else:
-        flash("You are not permitted access", 'danger')
+        flash("you are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
 @app.route("/admin/orders/update/<ord_id>", methods=['GET', 'POST'])
 def admin_update_order(ord_id):
-    if current_user.is_authenticated and current_user.user_type == 1:
-        form = AdminUpdateOrderForm()
-        order = service.get_admin_order(ord_id)
-        if request.method == 'GET':
-            form.collected.data = order.collected
-            form.collection_date.data = order.collection_date
-        if form.validate_on_submit():
-            order.collected = form.collected.data
-            order.collection_date = form.collection_date.data
-            db.session.commit()
-            flash('Order updated', 'success')
-            return redirect(url_for('all_orders'))
-        return render_template('admin-orders-update.html', form=form, title="Admin Update Order")
-    else:
-        flash("You are not permitted access", 'danger')
-        return redirect(url_for('home'))
+    error = ""
+    order = service.get_admin_order(ord_id)
+    if not order:
+        error = "There is no order to display"
+    return render_template('admin-orders-update.html', order=order, message=error, title = "Admin Update Order")
+
 
 @app.route("/admin/customers/update/<cus_id>", methods=['GET', 'POST'])
 def admin_update_customer(cus_id):
@@ -283,11 +280,11 @@ def admin_update_customer(cus_id):
             user.address = form.address.data
             user.phone = form.phone.data
             db.session.commit()
-            flash('Customer details updated', 'success')
+            flash('customer record updated', 'success')
             return redirect(url_for('all_customers'))
         return render_template('admin-customers-update.html', form=form, title='Admin Update Customer Details')
     else:
-        flash("You are not permitted access", 'danger')
+        flash("you are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
@@ -328,7 +325,7 @@ def admin_update_patient(pat_id):
 @app.route("/admin/products/add", methods=['GET', 'POST'])
 def admin_add_product():
     if current_user.is_authenticated and current_user.user_type == 1:
-        form = AdminAddProductForm()
+        form = AdminUpdateProductForm()
         if form.validate_on_submit():
             product = Product(prod_name=form.prod_name.data, prod_species=form.prod_species.data,
                               prod_category=form.prod_category.data, prod_description=form.prod_description.data,
@@ -350,6 +347,26 @@ def view_products():
     if len(products) == 0:
         error = "There are no products to display"
     return render_template('products.html', products=products, message=error, title="Products Available")
+
+
+@app.route("/admin/products/details/<prod_id>", methods=['GET', 'POST'])
+def product_detail(prod_id):
+    form = ProductOrderForm()
+    product_info, customer = service.get_prod_cust(prod_id)
+    if form.validate_on_submit():
+        order = OrderHistory(product_id=product_info.product_id, cus_id=customer.cus_id, quantity_ordered=form.order_quantity.data,
+                             order_date=date.today(), collected=0, collection_date=date.today() + timedelta(days=5))
+        db.session.add(order)
+        db.session.commit()
+        flash('ordered placed! you have been emailed confirmation', 'success')
+        return redirect(url_for('view_products'))
+    return render_template('product-details.html', product_info=product_info, form=form, title='Product Details')
+
+
+
+
+
+
 
 
 
