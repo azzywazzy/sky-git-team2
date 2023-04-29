@@ -116,9 +116,8 @@ def register_patient():
     return render_template('register_pet.html', title='Register Pet', form=form)
 
 
-@app.route("/update-pet", methods=['GET', 'POST'])
-def update_patient():
-    pat_id = request.args.get('pat_id')
+@app.route("/update-pet/<pat_id>", methods=['GET', 'POST'])
+def update_patient(pat_id):
     form = PatientUpdateForm()
     user = Customer.query.filter_by(cus_email=current_user.email).first()
     patient = Patient.query.get(pat_id)
@@ -201,7 +200,6 @@ def trial():
     if current_user.is_authenticated:
         user = Customer.query.filter_by(cus_email=current_user.email).first()
         return [user.cus_email, user.cus_first_name, user.cus_last_name]
-    # return jsonify(products)
 
 
 @app.route('/pet-care', methods=['GET'])
@@ -257,12 +255,22 @@ def admin_update_product(prod_id):
 
 @app.route("/admin/orders/update/<ord_id>", methods=['GET', 'POST'])
 def admin_update_order(ord_id):
-    error = ""
-    order = service.get_admin_order(ord_id)
-    if not order:
-        error = "There is no order to display"
-    return render_template('admin-orders-update.html', order=order, message=error, title = "Admin Update Order")
-
+    if current_user.is_authenticated and current_user.user_type == 1:
+        form = AdminUpdateOrderForm()
+        order = service.get_admin_order(ord_id)
+        if request.method == 'GET':
+            form.collected.data = order.collected
+            form.collection_date.data = order.collection_date
+        if form.validate_on_submit():
+            order.collected = form.collected.data
+            order.collection_date = form.collection_date.data
+            db.session.commit()
+            flash('Order updated', 'success')
+            return redirect(url_for('all_orders'))
+        return render_template('admin-orders-update.html', form=form, title="Admin Update Order")
+    else:
+        flash("You are not permitted access", 'danger')
+        return redirect(url_for('home'))
 
 @app.route("/admin/customers/update/<cus_id>", methods=['GET', 'POST'])
 def admin_update_customer(cus_id):
@@ -280,11 +288,11 @@ def admin_update_customer(cus_id):
             user.address = form.address.data
             user.phone = form.phone.data
             db.session.commit()
-            flash('customer record updated', 'success')
+            flash('Customer details updated', 'success')
             return redirect(url_for('all_customers'))
         return render_template('admin-customers-update.html', form=form, title='Admin Update Customer Details')
     else:
-        flash("you are not permitted access", 'danger')
+        flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
 
 
@@ -325,7 +333,7 @@ def admin_update_patient(pat_id):
 @app.route("/admin/products/add", methods=['GET', 'POST'])
 def admin_add_product():
     if current_user.is_authenticated and current_user.user_type == 1:
-        form = AdminUpdateProductForm()
+        form = AdminAddProductForm()
         if form.validate_on_submit():
             product = Product(prod_name=form.prod_name.data, prod_species=form.prod_species.data,
                               prod_category=form.prod_category.data, prod_description=form.prod_description.data,
