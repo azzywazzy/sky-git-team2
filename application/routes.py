@@ -27,7 +27,7 @@ def home():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('account'))
     form = LoginForm()
     if form.validate_on_submit():
         user = Credential.query.filter_by(email=form.email.data).first()
@@ -50,7 +50,7 @@ def logout():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('account'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -151,7 +151,10 @@ def update_patient(pat_id):
 @app.route("/account")
 @login_required
 def account():
-    return render_template('account.html', title='Account')
+    user = Customer.query.filter_by(cus_email=current_user.email).first()
+    patients = Patient.query.filter_by(cus_id=user.cus_id).all()
+    orders = OrderHistory.query.filter_by(cus_id=user.cus_id).all()
+    return render_template('account.html', user=user, patients=patients, orders=orders, title='Account')
 
 
 @app.route("/admin/customers", methods=['GET'])
