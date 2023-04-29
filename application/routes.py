@@ -164,7 +164,7 @@ def all_customers():
         customers = service.get_all_customers()
         if len(customers) == 0:
             error = "There are no customers to display"
-        return render_template('admin-customers.html', customers=customers, message=error, title = "Admin View all Customers")
+        return render_template('admin-customers.html', customers=customers, message=error, title="Admin View all Customers")
 
 
 @app.route("/admin/orders", methods=['GET'])
