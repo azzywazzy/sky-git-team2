@@ -47,22 +47,22 @@ body {
 }
 
 #products {
-  top: 220px;
+  top: 190px;
   background-color: #a694fe;
 }
 
 #pet-advice {
-  top: 290px;
+  top: 260px;
   background-color: #f9b2f2;
 }
 
 #account {
-  top: 430px;
+  top: 400px;
   background-color: #74fecc;
 }
 
 #logout {
-  top: 500px;
+  top: 470px;
   background-color: #f176d8;
 }
 
