@@ -4,40 +4,35 @@ body {
   height: 100vh;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: #444444;
+#surgery_title, body, h1, h2, h3, h4, h5, h6, .footer {
+  color: #333333;
+  font-family: Arial;
 }
 
-.bg-steel {
-  background-color: #5f788a;
+#page-container {
+  position: relative;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            /* Footer height */
 }
 
 #mySidenav a {
   position: absolute;
-
-  left: -80px;
-
-  transition: 0.3s;
-
+  margin-top: 100px;
   padding: 10px;
-
   width: 100px;
-
   text-decoration: none;
   font-size: 20px;
-
   color: white;
-
   border-radius: 0 5px 5px 0;
-}
-
-#mySidenav a:hover {
-  left: 0;
 }
 
 #home {
@@ -64,14 +59,17 @@ h6 {
   top: 430px;
   background-color: #74fecc;
 }
+
 #logout {
   top: 500px;
   background-color: #f176d8;
 }
+
 #login {
   top: 430px;
   background-color: #6bb7f5;
 }
+
 #register {
   top: 500px;
   background-color: #a694fe;
@@ -137,15 +135,6 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
-:root {
-  background-color: rgb(239, 211, 244);
-}
-
-.layout {
-  width: 600px;
-  margin: auto;
-}
-
 .accordion {
   padding: 10px;
   margin-top: 10px;
@@ -157,7 +146,7 @@ a.article-title:hover {
 .accordion__question p {
   margin: 5px;
   padding: 0;
-  font-family: Verdana;
+  font-family: Arial;
   font-size: 20px;
 }
 
@@ -165,7 +154,7 @@ a.article-title:hover {
   margin: 5px;
   padding: 10px;
   font-size: large;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Arial;
   color: rgb(255, 255, 255);
   background: rgb(166, 7, 191);
   border-radius: 10px;

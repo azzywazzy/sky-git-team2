@@ -240,7 +240,7 @@ def pet_care():
 
 @app.route('/the-team', methods=['GET'])
 def the_team():
-    return render_template('the-team.html')
+    return render_template('the-team.html', title='Meet The Team')
 
 
 @app.route('/admin', methods=['GET'])
