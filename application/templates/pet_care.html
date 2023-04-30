@@ -1,11 +1,268 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Pet Care</title>
-</head>
+<html>
+  <head>
+    <link rel="stylesheet" href="main.css">
+
+  </head>
+{% extends "layout.html" %}
+{% block content %}
 <body>
-<H1> Welcome to Pet Care! </H1>
-<h3> Come back soon for some pet advice <h3>
+   <h1 style="color:rgb(153, 23, 125); text-align:center">
+  Pet Help and Advice
+  </h1><br>
+  <h2 style="color:rgb(153, 23, 125); text-align:center">
+  Cats</h2>
+  <div class="layout">
+  <div class="accordion">
+    <div class="accordion__question">
+      <p>Q. Is my cat in pain?</p>
+    </div>
+
+    <div class="accordion__answer">
+      <p>
+        As a pet owner, you know your cat’s usual behaviour the most, which helps put you in a good position to identify whether your cat is in pain. For example, a change in your cat’s behaviour is a key indicator that they are experiencing discomfort.
+      </p>
+      <p>If your cat is more vocal than usual or growls when you come near them, they could be trying to tell you that they’re in pain.</p>
+      <p>If your cat is usually quite sociable and you notice they are withdrawing themselves, this could indicate that they’re in discomfort.</p>
+      <p>If you notice that your cat has begun to protect an area of their body such as being hunched up to protect their paw, or they are refraining from putting weight onto a limb, this can be a sign they are in chronic pain.</p>
+      <p>If you notice your cat isn’t grooming themselves as much this can be an indication of pain or an injury. It takes a lot of effort and flexibility for your cat to reach around to groom themselves and if they are in pain this can be aggravated as they turn or twist.</p>
+
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion__question">
+      <p>Q. What human foods are harmful to my cat?</p>
+    </div>
+
+    <div class="accordion__answer">
+      <p>
+        •	Chocolate</p>
+        <p>
+        •	Cows milk, cheese or any dairy product</p>
+        <p>•	Alcohol</p>
+        <p>
+        •	Onion and garlic</p>
+        <p>
+        •	Macadamia nuts</p>
+        <p>
+        •	Raw meat</p>
+          <p>•	Raw eggs</p>
+
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion__question">
+      <p>Q. Can cats get colds?</p>
+    </div>
+
+    <div class="accordion__answer">
+  <p>Runny nose. Fever. Achy muscles. Sound familiar? As well as being common symptoms of a human cold, your cat can experience them too. Unlike us though, cats can't catch the human cold virus, but are susceptible to a feline viral upper respiratory disease known as cat flu.</p>
+  <p>To treat a cat cold: <br>
+    <br>
+     Use a clean cloth and saltwater to gently remove discharge from their eyes and nose.<br><br>
+    Clean their bedding and bowls with warm water and replace their litter tray daily.<br><br>
+    Keep them hydrated with fresh water. A steamy room can help with decongestion.<br><br>
+    Encourage them to eat soft healthy food snacks that are easy for them to swallow.</p>
+
+</div>
+</div><br>
+<h2 style="color:rgb(153, 23, 125); text-align:center">
+  Dogs</h2>
+  <div class="accordion">
+    <div class="accordion__question">
+      <p>Q. How can I care for my dog after surgery?</p>
+    </div>
+
+    <div class="accordion__answer">
+      <p>
+        Once home, you may find that your dog doesn’t seem quite themselves after surgery. Although with modern anaesthetics pets normally recover very quickly, they may seem a bit disorientated and even a little unsure of where they are. More than anything, your dog will likely want to sleep and relax in their comfort zone. Even if your dog is a little disorientated they should always be bright and responsive to you, while being able to settle and get comfortable. If this is not the case then you should always give your local vet a call to discuss.
+      </p>
+      <p>It’s best to have your dog rest in familiar territory, allowing them to lie comfortably in their bed, keep their body temperature regulated (especially if it’s summer, ensure they can rest in a cool room) while having access to fresh water. If you have young children, keep them away from your dog so as to not aggravate them. It is also likely your vet will also provide a course of pain relief, and other medication, which your dog should take as instructed.</p>
+      <p>Exercising your dog after surgery will depend on the type of surgery they’ve had. Recovery from a spay or neuter can be quicker than if your dog has received orthopaedic treatment. Generally speaking, you should keep them rested for a few days after surgery, making sure they don’t make any extended movements like jumping onto a sofa, up the stairs, into the car, or onto the bed (if they’re allowed!). Off lead exercise usually needs to be avoided until the dog’s wounds have fully healed.</p>
+    <p>Some dogs may be naturally energetic in their nature, which needs to be carefully managed to ensure that it does not impede their rate of recovery. If you’re having trouble keeping your dog still you may have to restrict them by using a crate to ensure they do not overdo themselves and cause injury. It’s not ideal and can be a bit unmoving to have to do this, but it’s the best way to prevent them from hurting themselves further and to ensure they’re on the right path to a successful recovery. Please always discuss with your vet what is the best way to ensure your dog gets the controlled recovery it needs.</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="accordion__question">
+      <p>Q. How do I avoid the risk of heat stroke in my dog?</p>
+    </div>
+
+    <div class="accordion__answer">
+      <p>
+        <b>Do not leave your dog in a parked car on a warm day.</b>
+Under no circumstances leave your dog in a parked car on a warm day. Even at mild temperatures, this can cause your dog to warm up in as little as 15 minutes. Simply leaving the window open is inadequate ventilation to compensate and prevent your dog from overheating. Sadly, dogs have died being left in a hot car by pet owners and cases continue to rise in the UK.
+       </p>
+    <p><b>Walk your dog in shaded areas.</b>
+      Similar to avoiding hot pavements, taking your dog for a walk in areas of shade makes sure they don’t scald their paws, but also helps them keep cool and avoid heat exhaustion.
+      </p>
+      <p><b>Pour and run hot water over their paws to bring down their body temperature.</b>
+As your pet can struggle to regulate their temperature because of the heat and their fur, this cooling process will help prevent them from overheating. You can either pour the water directly or use a damp cloth on their paws to regulate their temperature.</p>
+
+      <p><b>Always provide drinking water for your dog.</b>
+        Ideally cool drinking water. If your dog’s nose is dry and warm to the touch, they could be too hot. It’s important to encourage them to drink cold water and keep their nose wet and cool to the touch.
+        </p>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="accordion">
+      <div class="accordion__question">
+        <p>Q. How do I cut my dogs nails?</p>
+
+      </div>
+      <div class="accordion__answer">
+        <p>•	Choose your equipment. If your dog’s nails need a slight trim you simply need a pumice stone or file as opposed to clippers. For more overgrown nails, we recommend using guillotine clippers, scissors or an electric nail grinder. Regardless of the chosen tool, it should always be as sharp as possible to ensure the dog isn’t in any discomfort. </p>
+        <p>
+          •	Hold your pet’s paw firmly and use a flashlight to identify the blood supply area – this can be easier to find in lighter nails.</p>
+          <p>
+          •	Begin trimming slowly and carefully, rewarding your dog as you go. It may help to have an additional pair of hands to do the rewarding as you carefully snip the keratin, stopping at the blood supply.
+          </p>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion__question">
+        <p>Q. How does my dog travel safely in my car?</p>
+      </div>
+
+      <div class="accordion__answer">
+        <p>
+          <b>Do not leave your dog in a parked car on a warm day.</b>
+         </p>
+      <p><b>Walk your dog in shaded areas.</b>
+        Similar to avoiding hot pavements, taking your dog for a walk in areas of shade makes sure they don’t scald their paws, but also helps them keep cool and avoid heat exhaustion.
+        </p>
+        <p><b>Pour and run hot water over their paws to bring down their body temperature.</b>
+As your pet can struggle to regulate their temperature because of the heat and their fur, this cooling process will help prevent them from overheating. You can either pour the water directly or use a damp cloth on their paws to regulate their temperature.</p>
+
+        <p><b>Always provide drinking water for your dog.</b>
+          Ideally cool drinking water. If your dog’s nose is dry and warm to the touch, they could be too hot. It’s important to encourage them to drink cold water and keep their nose wet and cool to the touch.
+          </p>
+      </div>
+    </div><br>
+
+    <h2 style="color:rgb(153, 23, 125); text-align:center">
+      Hamsters</h2>
+
+    <div class="accordion">
+      <div class="accordion__question">
+        <p>Q. How do I care for my hamster?</p>
+      </div>
+
+      <div class="accordion__answer">
+        <p>Hamsters are relatively low maintenance pets to look after, although caring for them still takes time. They need daily feeding, a good weekly cleaning out and regular health checking, as well as plenty of handling to help them get used to you. It’s best to do these things in the evening when your hamster will be naturally awake. If you frequently wake them to pick them up for example, your pet will associate handling with being disturbed so they won’t be as receptive to it.
+        </div>
+      </div>
+
+
+        <div class="accordion">
+          <div class="accordion__question">
+            <p>Q. How much space do hamsters need?</p>
+          </div>
+
+          <div class="accordion__answer">
+        <p>
+          It’s always best to give your pet as much space as you possibly can. They are active little characters, so one thing they definitely need is a wheel to run in as well as tubes to squeeze through and room to explore. You can connect some cages together using a series of tubes and tunnels, which is a brilliant way to increase the amount of space your pet has.
+          Your hamster won’t like being disturbed when they’re sleeping, so it’s best to keep them somewhere quiet and away from boisterous kids and any other pets you may have. And because you won’t want to be disturbed when you’re sleeping either, you might not want to keep them in your bedroom, with Syrian hamsters in particular having a reputation for being quite noisy at night.</p>
+      </div>
+    </div>
+
+
+    <div class="accordion">
+      <div class="accordion__question">
+        <p>Q. Do hamsters need lots of company?</p>
+      </div>
+
+      <div class="accordion__answer">
+    <p>  No matter what species of hamster you choose, you’ll need to spend time interacting with your pet every day, being as gentle and positive as possible. Some hamsters prefer to live alone, while others like to live in a pack, so make sure you know what your pet needs before bringing them home.</p>
+
+  </div>
+</div><br>
+
+<h2 style="color:rgb(153, 23, 125); text-align:center">
+  Rabbits</h2>
+
+    <div class="accordion">
+      <div class="accordion__question">
+        <p>Q. How much food does a rabbit need?</p>
+      </div>
+
+      <div class="accordion__answer">
+        <p>
+          The bulk of a rabbit’s natural diet should consist of good quality hay or grass (but not fresh lawn clippings as they can ferment quickly) measured to the equivalent of their body size. Fresh hay is an essential part of a rabbit’s diet, and you need to provide a constant supply of enough hay for your rabbit to graze on. Chewing hay is good for a rabbit’s teeth, which keep growing throughout their life and need to be worn down naturally.
+        </p>
+        <p>Typically we recommend a bundle of fresh hay at least the size of the rabbit. This type of food helps to maintain your rabbit’s general health, with hay providing support to wear your pet’s teeth down as they continuously grow, and to give them the right amount of fibre required for their digestive health.</p>
+        <p>There are a number of different varieties of hay available, and the right choice will depend on your rabbit’s age, health and size. For example, alfalfa hay can be a good choice for younger rabbits, but shouldn’t be fed to adult rabbits due to its high calcium and carbohydrate content.</p>
+        <p>The rest of their diet can be made up of fresh leafy greens which should be provided every morning and evening. Rabbits eat a variety of vegetables and greens, and we recommend around one handful (adult-sized) per day. Rabbits enjoy spending time foraging, so they enjoy a mix of this kind of food daily which can help prevent boredom, keep them engaged and make their habitat more interesting.</p>
+        <p>Hay is extremely versatile and perfect for entertaining your rabbit as you can also hide treats and other leafy greens within it for them to rustle out. In addition to their main daily food supply, rabbits are also allowed a treat no larger than one to two tablespoons of rabbit pellets or nuggets a day. It’s also extremely important to give your rabbit fresh water to keep them hydrated at all times.</p>
+
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion__question">
+        <p>Q. Does my rabbit need vaccinations?</p>
+      </div>
+
+      <div class="accordion__answer">
+        <p>While it's not the law to vaccinate pet rabbits, we strongly advise vaccinating your rabbit to protect them against sometimes fatal diseases. Keeping your annual vaccination appointment every year is really important for both you and your rabbit.
+        </p>
+
+      </div>
+    </div><br>
+
+    <h2 style="color:rgb(153, 23, 125); text-align:center">
+      Fish</h2>
+    <div class="accordion">
+      <div class="accordion__question">
+        <p>Q. How do I look after fish?</p>
+      </div>
+
+      <div class="accordion__answer">
+        <p>Although they’re low maintenance compared to other pets you might keep, fish still require plenty of care to make sure they stay happy and healthy. From tasks such as cleaning tanks and filters, to providing the right food, your fish will depend on you for a lot. But when you get it right, they’ll appreciate the work you put in.
+        </p>
+
+      </div>
+    </div>
+
+
+    <div class="accordion">
+      <div class="accordion__question">
+        <p>Q. How do I dispose of my dead fish?</p>
+      </div>
+
+      <div class="accordion__answer">
+        <p>Flush it down the toilet.
+        </p>
+
+      </div>
+    </div>
+
+
+
+  </div>
+  </div>
 </body>
+
+
+
+<script>
+
+let answers = document.querySelectorAll(".accordion");
+answers.forEach((event) => {
+  event.addEventListener("click", () => {
+    if (event.classList.contains("active")) {
+      event.classList.remove("active");
+    } else {
+      event.classList.add("active");
+    }
+  });
+});
+
+
+    </script>
+{% endblock content %}
 </html>

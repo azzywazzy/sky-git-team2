@@ -35,7 +35,11 @@ def get_all_orders():
 
 
 def get_all_products():
-    return db.session.query(Product).all()
+    products = db.session.query(Product).all()
+    for e in products:
+        e.prod_category = e.prod_category.capitalize()
+        e.prod_species = e.prod_species.capitalize()
+    return products
 
 
 def get_admin_product(prod_id):
