@@ -26,7 +26,7 @@
           <td>{{ prod.prod_category }}</td>
           <td>{{ prod.prod_name }}</td>
           <td>{{ prod.prod_description }} </td>
-            <td>{{ (prod.prod_cost / 100)  }}</td>
+            <td>{{ "%.2f" %(prod.prod_cost/100)  }}</td>
           <td>{{ prod.prod_image }}</td>
             <td>{{ prod.quantity_available }}</td>
 
@@ -44,35 +44,22 @@
 
 
 $(document).ready(function () {
-      $('#tab_ord').DataTable();
-});
+      $('#tab_prod').dataTable({
+
+          "columnDefs": [
+        { "width": "10%" },
+       { "width": "5%" },
+       { "width": "7%" },
+       { "width": "7%" },
+       { "width": "20%" },
+       { "width": "30%" },
+       { "width": "7%" },
+       { "width": "7%" },
+       { "width": "7%" }
+              ]
+      });
+      });
 
 
-
-<!--    $('#data').DataTable({-->
-<!--        initComplete: function () {-->
-<!--            this.api()-->
-<!--                .columns()-->
-<!--                .every(function () {-->
-<!--                    var column = this;-->
-<!--                    var select = $('<select><option value=""></option></select>')-->
-<!--                        .appendTo($(column.header()).empty())-->
-<!--                        .on('change', function () {-->
-<!--                            var val = $.fn.dataTable.util.escapeRegex($(this).val());-->
-
-<!--                            column.search(val ? '^' + val + '$' : '', true, false).draw();-->
-<!--                        });-->
-
-<!--                    column-->
-<!--                        .data()-->
-<!--                        .unique()-->
-<!--                        .sort()-->
-<!--                        .each(function (d, j) {-->
-<!--                            select.append('<option value="' + d + '">' + d + '</option>');-->
-<!--                        });-->
-<!--                });-->
-<!--        },-->
-<!--    });-->
-<!--});-->
 </script>
 {% endblock %}

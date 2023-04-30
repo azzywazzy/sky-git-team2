@@ -16,7 +16,7 @@ from application.models.vet_personnel import VetPersonnel
 from application.models.credential import Credential
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import date, timedelta
-
+from werkzeug.datastructures import MultiDict
 
 @app.route('/')
 @app.route('/home')
@@ -390,22 +390,26 @@ def view_products():
     return render_template('products.html', products=products, message=error, title="Products Available")
 
 
-@app.route("/admin/products/details/<prod_id>", methods=['GET', 'POST'])
+@app.route("/products/details/<prod_id>", methods=['GET', 'POST'])
 def product_detail(prod_id):
-    if current_user.is_authenticated:
-        form = ProductOrderForm()
-        product_info, customer = service.get_prod_cust(prod_id)
-        if form.validate_on_submit():
+    form = ProductOrderForm()
+    product_info, customer = service.get_prod_cust(prod_id)
+    if form.validate_on_submit():
+        if form.order_quantity.data <= product_info.quantity_available:
             order = OrderHistory(product_id=product_info.product_id, cus_id=customer.cus_id, quantity_ordered=form.order_quantity.data,
-                                 order_date=date.today(), collected=0, collection_date=date.today() + timedelta(days=5))
+                                     order_date=date.today(), collected=0, collection_date=date.today() + timedelta(days=5))
             db.session.add(order)
             db.session.commit()
-            flash('Ordered placed. You have been emailed confirmation.', 'success')
+            product_info.quantity_available = product_info.quantity_available - form.order_quantity.data
+            db.session.commit()
+            flash('ordered placed! you have been emailed confirmation', 'success')
             return redirect(url_for('view_products'))
-        return render_template('product-details.html', product_info=product_info, form=form, title='Product Details')
-    else:
-        flash("You are not permitted access", 'danger')
-        return redirect(url_for('home'))
+        else:
+            flash("we don't have that many in stock sorry - please check the quantity available", 'danger')
+            return render_template('product-details.html', product_info=product_info, form=form,
+                                       title='Product Details')
+    return render_template('product-details.html', product_info=product_info, form=form, title='Product Details')
+
 
 
 
