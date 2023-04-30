@@ -12,6 +12,10 @@ set prod_image = concat(prod_image, '.png')
 where product_id > 0;
 
 update credential
+set user_type = 1
+where id = 5;
+
+update credential
 
 
 -- please only run one batch at a time as they need the foreign keys --
