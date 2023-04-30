@@ -145,6 +145,7 @@ a.article-title:hover {
   width: 600px;
   margin: auto;
 }
+
 .accordion {
   padding: 10px;
   margin-top: 10px;
@@ -152,12 +153,14 @@ a.article-title:hover {
   background: rgb(190, 111, 216);
   border-radius: 10px;
 }
+
 .accordion__question p {
   margin: 5px;
   padding: 0;
   font-family: Verdana;
   font-size: 20px;
 }
+
 .accordion__answer p {
   margin: 5px;
   padding: 10px;
@@ -167,12 +170,15 @@ a.article-title:hover {
   background: rgb(166, 7, 191);
   border-radius: 10px;
 }
+
 .accordion:hover {
   cursor: pointer;
 }
+
 .accordion__answer {
   display: none;
 }
+
 .accordion.active .accordion__answer {
   display: block;
 }
