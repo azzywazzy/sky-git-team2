@@ -9,7 +9,7 @@ class RegistrationForm(FlaskForm):
     cus_last_name = StringField('Last Name', validators=[DataRequired(), Length(min=1, max=20)])
     cus_email = StringField('Email', validators=[DataRequired(), Email()])
     address = StringField('Address', validators=[DataRequired()])
-    phone = IntegerField('Phone Number', validators=[DataRequired()])
+    phone = StringField('Phone Number', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
@@ -64,7 +64,7 @@ class UpdateCustomerForm(FlaskForm):
     cus_first_name = StringField('First Name', validators=[Length(min=1, max=20)])
     cus_last_name = StringField('Last Name', validators=[Length(min=1, max=20)])
     address = StringField('Address')
-    phone = IntegerField('Phone Number')
+    phone = StringField('Phone Number')
     submit = SubmitField('Save Changes')
 
 class AdminPatientUpdateForm(FlaskForm):
@@ -83,7 +83,7 @@ class AdminUpdateCustomerForm(FlaskForm):
     cus_first_name = StringField('First Name', validators=[Length(min=1, max=20)])
     cus_last_name = StringField('Last Name', validators=[Length(min=1, max=20)])
     address = StringField('Address')
-    phone = IntegerField('Phone Number')
+    phone = StringField('Phone Number')
     submit = SubmitField('Save Changes')
 
 

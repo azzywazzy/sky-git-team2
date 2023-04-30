@@ -1,10 +1,15 @@
 body {
-  background: #fafafa;
+  background: #eaf2fc;
   color: #333333;
-  margin-top: 5rem;
+  height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #444444;
 }
 
@@ -12,16 +17,69 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #5f788a;
 }
 
-.site-header .navbar-nav .nav-link {
-  color: #cbd5db;
+#mySidenav a {
+  position: absolute;
+
+  left: -80px;
+
+  transition: 0.3s;
+
+  padding: 10px;
+
+  width: 100px;
+
+  text-decoration: none;
+  font-size: 20px;
+
+  color: white;
+
+  border-radius: 0 5px 5px 0;
 }
 
-.site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
+#mySidenav a:hover {
+  left: 0;
 }
 
-.site-header .navbar-nav .nav-link.active {
-  font-weight: 500;
+#home {
+  top: 20px;
+  background-color: #74fecc;
+}
+
+#the-team {
+  top: 90px;
+  background-color: #6bb7f5;
+}
+
+#products {
+  top: 220px;
+  background-color: #a694fe;
+}
+
+#pet-advice {
+  top: 290px;
+  background-color: #f9b2f2;
+}
+
+#account {
+  top: 430px;
+  background-color: #74fecc;
+}
+#logout {
+  top: 500px;
+  background-color: #f176d8;
+}
+#login {
+  top: 430px;
+  background-color: #6bb7f5;
+}
+#register {
+  top: 500px;
+  background-color: #a694fe;
+}
+
+#admin {
+  top: 600px;
+  background-color: #5a0aa1;
 }
 
 .content-section {
@@ -54,7 +112,7 @@ a.article-title:hover {
 .article-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
+  border-bottom: 1px solid #e3e3e3;
 }
 
 .article-metadata a:hover {
@@ -77,4 +135,8 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+:root {
+  background-color: rgb(239, 211, 244);
 }

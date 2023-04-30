@@ -1,4 +1,51 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<div class="row">
+    <div id="home-carousel" class="col-4 carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../static/images/carousel/cat1.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="../static/images/carousel/cat2.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="../static/images/carousel/cat3.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="../static/images/carousel/cat4.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="../static/images/carousel/cat5.jpg" class="d-block w-100" alt="..." />
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#home-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#home-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <div class="col-8">
+      <div class="row">
+        <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
+          a little bit about us
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
+          a little bit about us Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tenetur id sit temporibus ad, beatae asperiores fugit autem voluptas assumenda unde officia at ea perferendis illum tempora illo harum, ut consectetur.
+          Praesentium, Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos maxime hic sapiente repudiandae vitae cupiditate eaque optio aut aliquid vero. Nisi harum, modi corrupti debitis porro minus fuga non consequatur?
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
 {% endblock content %}
