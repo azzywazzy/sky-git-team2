@@ -14,4 +14,5 @@ insert into credential values (4, "fayequinn@email.com", "0", ";lksaf;lakopim;gd
 
 
 select * from credential;
-
+select * from customer;
+select * from patient;
