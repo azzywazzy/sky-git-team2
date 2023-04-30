@@ -65,7 +65,7 @@ class UpdateCustomerForm(FlaskForm):
     cus_last_name = StringField('Last Name*', validators=[Length(min=1, max=20)])
     address = StringField('Address*')
     phone = StringField('Phone Number*')
-    submit = SubmitField('Save Changes*')
+    submit = SubmitField('Save Changes')
 
 
 class AdminPatientUpdateForm(FlaskForm):
