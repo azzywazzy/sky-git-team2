@@ -1,73 +1,150 @@
 {% extends "layout.html" %}
 {% block content %}
+<h3>Vet Assured Products</h3>
+<p>Browse our carefully chosen selection of products below and then click through for more details and to place an order.</p>
+<p>Any products ordered can be collected and paid for at the surgery 5 days later.</p>
 
-<table id="example" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Species</th>
-        <th>Category</th>
-        <th>Name</th>
-          <th>Cost (£)</th>
-          <th>Quantity Available</th>
+<div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Accessories
+        </button>
+      </h5>
+    </div>
 
-      </tr>
-    </thead>
-      <tbody>
-      {% for prod in products %}
-        <tr>
-              <td>{{ prod.prod_species }}</td>
-          <td>{{ prod.prod_category }}</td>
-          <td><a href="/admin/products/details/{{ prod.product_id }}">{{ prod.prod_name }}</a></td>
-            <td>{{ (prod.prod_cost / 100)  }}</td>
-            <td>{{ prod.quantity_available }}</td>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+                     {% for prod in products %}
+          {% if prod.prod_category == "accessories" %}
+          <p><a href="/products/details/{{ prod.product_id }}">{{ prod.prod_name }}</a> £{{ "%.2f" %(prod.prod_cost/100) }}</p>
+          {% endif %}
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Food
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+              <div class="card-body">
+           {% for prod in products %}
+          {% if prod.prod_category == "food" %}
+          <p><a href="/products/details/{{ prod.product_id }}">{{ prod.prod_name }}</a> £{{ "%.2f" %(prod.prod_cost/100) }}</p>
+          {% endif %}
+          {% endfor %}
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Medication
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+              <div class="card-body">
+           {% for prod in products %}
+          {% if prod.prod_category == "medication" %}
+          <p><a href="/products/details/{{ prod.product_id }}">{{ prod.prod_name }}</a> £{{ "%.2f" %(prod.prod_cost/100) }}</p>
+          {% endif %}
+          {% endfor %}
+      </div>
+      </div>
+    </div>
+  </div>
+      <div class="card">
+    <div class="card-header" id="headingFour">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+          Toiletries
+        </button>
+      </h5>
+    </div>
 
-        </tr>
-      {% endfor %}
-    </tbody>
-  <tfoot>
+    <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordion">
+      <div class="card-body">
+           {% for prod in products %}
+          {% if prod.prod_category == "toiletries" %}
+          <p><a href="/products/details/{{ prod.product_id }}">{{ prod.prod_name }}</a> £{{ "%.2f" %(prod.prod_cost/100) }}</p>
+          {% endif %}
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+      <div class="card">
+    <div class="card-header" id="headingFive">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+          Toys
+        </button>
+      </h5>
+    </div>
 
-  </tfoot>
-</table>
-{% endblock content %}
+    <div id="collapseFive" class="collapse show" aria-labelledby="headingFive" data-parent="#accordion">
+      <div class="card-body">
+           {% for prod in products %}
+          {% if prod.prod_category == "toys" %}
+          <p><a href="/products/details/{{ prod.product_id }}">{{ prod.prod_name }}</a> £{{ "%.2f" %(prod.prod_cost/100) }}</p>
+          {% endif %}
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 
-{% block scripts %}
-<script>
-var table = $('#example').DataTable();
+<!-- <table id="table_filter" class="table table-striped">-->
+<!--    <thead>-->
+<!--      <tr>-->
+<!--        <th>Category</th>-->
+<!--        <th>Name</th>-->
+<!--          <th>Cost (£)</th>-->
+<!--          <th>Quantity Available</th>-->
 
-table.columns( '.select-filter' ).every( function () {
-    var that = this;
+<!--      </tr>-->
+<!--    </thead>-->
+<!--      <tbody>-->
+<!--      {% for prod in products %}-->
+<!--        <tr>-->
+<!--          <td>{{ prod.prod_category }}</td>-->
+<!--          <td><a href="/products/details/{{ prod.product_id }}">{{ prod.prod_name }}</a></td>-->
+<!--            <td>{{ (prod.prod_cost / 100)  }}</td>-->
+<!--            <td>{{ prod.quantity_available }}</td>-->
 
-    // Create the select list and search operation
-    var select = $('<select />')
-        .appendTo(
-            this.header()
-        )
-        .on( 'change', function () {
-            that
-                .search( $(this).val() )
-                .draw();
-        } );
+<!--        </tr>-->
+<!--      {% endfor %}-->
+<!--    </tbody>-->
+<!--  <tfoot>-->
 
-    // Get the search data for the first column and add to the select list
-    this
-        .cache( 'search' )
-        .sort()
-        .unique()
-        .each( function ( d ) {
-            select.append( $('<option value="'+d+'">'+d+'</option>') );
-        } );
-} );
+<!--  </tfoot>-->
+<!--</table>-->
+<!--{% endblock content %}-->
 
-<!--    $('#example').dataTable( {-->
-<!--  "columns": [-->
-<!--    { "width": "10%" },-->
-<!--      { "width": "10%" },,-->
-<!--      { "width": "50%" },,-->
-<!--      { "width": "10%" },,-->
-<!--      { "width": "10%" },-->
-<!--    ]-->
-<!--    } );-->
+<!--{% block scripts %}-->
+<!--<script>-->
 
+<!--table.columns( '.select-filter' ).every( function () {-->
+<!--    var that = this;-->
 
-  </script>
-{% endblock %}
+<!--$(document).ready(function () {-->
+<!--      $('#tab_pd').DataTable();-->
+<!--        col_widths: [-->
+<!--          '10%', '60%', '10%',-->
+<!--          '10%'-->
+<!--        ]-->
+
+<!--});-->
+
+<!--  </script>-->
+<!--{% endblock %}-->

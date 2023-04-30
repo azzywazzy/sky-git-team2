@@ -18,7 +18,11 @@
 £ {{ product_info.prod_cost/100 }}
 </p>
 <p>
-Amount currently in stock:  {{ product_info.quantity_available }}
+Amount currently in stock:  {% if product_info.quantity_available == 0 %}
+    out of stock
+    {% else %}
+    {{ product_info.quantity_available }}
+    {% endif %}
 </p>
 
     <div class="content-section">

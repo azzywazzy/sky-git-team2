@@ -11,3 +11,4 @@ flask_login
 wtforms[email]==3.0.1
 cryptography==40.0.2
 bootstrap-flask
+

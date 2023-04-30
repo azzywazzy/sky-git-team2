@@ -7,6 +7,12 @@ select * from product;
 select * from vet_personnel;
 select * from order_history;
 
+update product
+set prod_image = concat(prod_image, '.png')
+where product_id > 0;
+
+update credential
+
 
 -- please only run one batch at a time as they need the foreign keys --
 insert into customer values(1, "Faye", "Quinn", "fayequinn@email.com", "4 Blossom Hill, WF4 6HT", "07836233821", "1");
