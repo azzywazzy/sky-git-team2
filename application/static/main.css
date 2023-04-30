@@ -182,3 +182,49 @@ a.article-title:hover {
 .accordion.active .accordion__answer {
   display: block;
 }
+
+.admin-row {
+    height: 17em;
+}
+
+.admin-tile {
+    padding: 5em;
+    margin: .1em;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+}
+
+.admin-tile:hover .admin-tile-sec {
+    display: inline-block;
+}
+
+.admin-tile:hover .admin-tile-third {
+    display: none;
+}
+
+.admin-tile-main {
+    font-size: 3em;
+}
+
+.admin-tile-sec {
+    font-size: 1em;
+    display: none;
+}
+
+#admin-tile-1 {
+    background-color: #74fecc;
+}
+
+#admin-tile-2 {
+    background-color: #6bb7f5;
+}
+
+#admin-tile-3 {
+    background-color: #a694fe;
+}
+
+#admin-tile-4 {
+    background-color: #f9b2f2;
+}

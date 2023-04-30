@@ -1,23 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-<p>
-<div>
-        <button type="button" class="btn btn_outline_info"><a href="/admin/customers">Customers:   </a><small>view, update, contact</small></button>
+<div class="container" id="admin-container">
+    <div class="admin-row row" id="row-1">
+        <a class="admin-tile col" id="admin-tile-1" href="/admin/customers">
+            <div class="admin-tile-main">Customers</div>
+            <div class="admin-tile-sec">View and Update</div>
+        </a>
+        <a class="admin-tile col" id="admin-tile-2" href="/admin/patients">
+            <div class="admin-tile-main">Patients</div>
+            <div class="admin-tile-sec">View and Update</div>
+        </a>
     </div>
-</p>
-<p>
-    <div>
-        <button type="button" class="btn btn_outline_info"><a href="/admin/patients">Patients:   </a><small>view, update</small></button>
+    <div class="admin-row row" id="row-2">
+        <a class="admin-tile col" id="admin-tile-3" href="/admin/orders">
+            <div class="admin-tile-main">Orders</div>
+            <div class="admin-tile-sec">View and Acknowledge Collection</div>
+        </a>
+        <a class="admin-tile col" id="admin-tile-4" href="/admin/products">
+            <div class="admin-tile-main">Products</div>
+            <div class="admin-tile-sec">View, Add, and Update</div>
+        </a>
     </div>
-</p>
-<p>
-    <div>
-        <button type="button" class="btn btn_outline_info"><a href="/admin/orders">Orders:   </a><small>view, acknowledge collection</small></button>
-    </div>
-</p>
-<p>
-    <div>
-        <button type="button" class="btn btn_outline_info"><a href="/admin/products">Products:   </a><small>view, add, update</small></button>
-    </div>
-</p>
+</div>
 {% endblock content %}
