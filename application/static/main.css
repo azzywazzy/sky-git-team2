@@ -139,7 +139,9 @@ a.article-title:hover {
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+  background: #a694fe;
   border-radius: 10px;
+  color: white;
 }
 
 .accordion__question p {
@@ -154,6 +156,8 @@ a.article-title:hover {
   padding: 10px;
   font-size: large;
   font-family: Arial;
+  background: #d5cdfe;
+  color: #333333;
   border-radius: 10px;
 }
 

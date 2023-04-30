@@ -41,64 +41,62 @@
     </div>
 
     <section class="container">
-    <div id="mySidenav" class="sidenav col-sm-2">
-        <div>
-            <a href="/" id="home">Home</a>
-            <a href="/the-team" id="the-team">Meet The Team</a>
-            <a href="/pet-care" id="pet-advice">Pet Advice</a>
-            <a href="/products" id="products">Products</a>
-        </div>
-        <div>
-            {% if current_user.is_authenticated %}
-            <a id="account" href="{{ url_for('account') }}">Account</a>
-            <a id="logout" href="{{ url_for('logout') }}">Logout</a>
-            {% else %}
-            <a id="login" href="{{ url_for('login') }}">Login</a>
-            <a id="register" href="{{ url_for('register') }}">Register</a>
-            {% endif %}
-            {% if current_user.is_authenticated and current_user.user_type == 1 %}
-            <a id="admin" href="/admin">Admin</a>
-            {% endif %}
-        </div>
-    </div>
-
-    <div id="page-container" class="container-sm col-sm-9">
-        <div id="content-wrap">
-            <main role="main" id="main" class="container">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
+        <div id="mySidenav" class="sidenav col-sm-2">
+            <div>
+                <a href="/" id="home">Home</a>
+                <a href="/the-team" id="the-team">Meet The Team</a>
+                <a href="/pet-care" id="pet-advice">Pet Advice</a>
+                <a href="/products" id="products">Products</a>
+            </div>
+            <div>
+                {% if current_user.is_authenticated %}
+                <a id="account" href="{{ url_for('account') }}">Account</a>
+                <a id="logout" href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                <a id="login" href="{{ url_for('login') }}">Login</a>
+                <a id="register" href="{{ url_for('register') }}">Register</a>
                 {% endif %}
-                {% endwith %}
-                {% block content %}{% endblock %}
-            </main>
+                {% if current_user.is_authenticated and current_user.user_type == 1 %}
+                <a id="admin" href="/admin">Admin</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="page-container" class="container-sm col-sm-9">
+            <div id="content-wrap">
+                <main role="main" id="main" class="container">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    {% block content %}{% endblock %}
+                </main>
+            </div>
         </div>
     </section>
-
-            <div>
-                <footer class="footer">
-                    <ul class="nav justify-content-center">
-                        <li class="nav-item">
-                            <a href="/" class="nav-link px-2">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/contact-us" class="nav-link px-2">Contact us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/products" class="nav-link px-2">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/pet-care" class="nav-link px-2">Pet Care</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/the-team" class="nav-link px-2">Meet The Team</a>
-                        </li>
-                    </ul>
-                    <p class="text-center">&copy; Sky Get Into Tech</p>
-                </footer>
-            </div>
 </body>
+<footer class="footer">
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a href="/" class="nav-link px-2">Home</a>
+        </li>
+        <li class="nav-item">
+            <a href="/contact-us" class="nav-link px-2">Contact us</a>
+        </li>
+        <li class="nav-item">
+            <a href="/products" class="nav-link px-2">Products</a>
+        </li>
+        <li class="nav-item">
+            <a href="/pet-care" class="nav-link px-2">Pet Advice</a>
+        </li>
+        <li class="nav-item">
+            <a href="/the-team" class="nav-link px-2">Meet The Team</a>
+        </li>
+    </ul>
+    <p class="text-center">&copy; Sky Get Into Tech</p>
+</footer>
 
 </html>
