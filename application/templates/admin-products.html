@@ -11,10 +11,9 @@
         <th>Category</th>
         <th>Name</th>
         <th>Description</th>
-          <th>Cost (£)</th>
-          <th>Image Ref</th>
-          <th>Quantity Available</th>
-
+        <th>Cost (£)</th>
+        <th>Image Ref</th>
+        <th>Quantity Available</th>
       </tr>
     </thead>
       <tbody>
@@ -22,14 +21,13 @@
         <tr>
           <td><a href="/admin/products/update/{{ prod.product_id }}">Update Record</a></td>
           <td>{{ prod.product_id }}</td>
-              <td>{{ prod.prod_species }}</td>
+          <td>{{ prod.prod_species }}</td>
           <td>{{ prod.prod_category }}</td>
           <td>{{ prod.prod_name }}</td>
           <td>{{ prod.prod_description }} </td>
-            <td>{{ "%.2f" %(prod.prod_cost/100)  }}</td>
+          <td>{{ "%.2f" %(prod.prod_cost/100)  }}</td>
           <td>{{ prod.prod_image }}</td>
-            <td>{{ prod.quantity_available }}</td>
-
+          <td>{{ prod.quantity_available }}</td>
         </tr>
       {% endfor %}
     </tbody>

@@ -271,4 +271,7 @@ a.article-title:hover {
 
 .button:hover {
   background-color: #555;
+
+thead * {
+    vertical-align: top;
 }

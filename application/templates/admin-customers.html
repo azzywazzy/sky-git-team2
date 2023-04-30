@@ -9,9 +9,9 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Address</th>
-          <th>Phone</th>
-          <th>Status</th>
-           <th>Pets</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Pets</th>
 
 
       </tr>
@@ -21,17 +21,16 @@
         <tr>
           <td><a href="/admin/customers/update/{{ cus.cus_id }}">Update Record</a></td>
           <td>{{ cus.cus_id }}</td>
-              <td>{{ cus.cus_first_name }}</td>
+          <td>{{ cus.cus_first_name }}</td>
           <td>{{ cus.cus_last_name }}</td>
           <td>{{ cus.cus_email }}</td>
           <td>{{ cus.address }}</td>
-            <td>{{ cus.phone[:5] }} {{ cus.phone[5:] }}</td>
+          <td>{{ cus.phone[:5] }} {{ cus.phone[5:] }}</td>
           <td>{{ cus.cus_status }}</td>
-            <td> {% for pet in cus.patients %}
+          <td> {% for pet in cus.patients %}
                 <a href="/admin/patients/update/{{ pet.pat_id }}">{{ pet.pat_name }}</a>
             {% endfor %}
             </td>
-
         </tr>
       {% endfor %}
     </tbody>

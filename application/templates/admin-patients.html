@@ -6,21 +6,19 @@
 <table id="tab_pat" class="table table-striped">
     <thead>
       <tr>
-         <th>Update</th>
+        <th>Update</th>
         <th>ID</th>
         <th>Customer ID</th>
         <th>Customer Last Name</th>
         <th>Patient Name</th>
         <th>Species</th>
         <th>Breed</th>
-          <th>Sex</th>
-          <th>DoB</th>
-          <th>Weight (g)</th>
-         <th>Chip No.</th>
-         <th>Neuter</th>
-         <th>Insurance</th>
-
-
+        <th>Sex</th>
+        <th>DoB</th>
+        <th>Weight (g)</th>
+        <th>Chip No.</th>
+        <th>Neuter</th>
+        <th>Insurance</th>
       </tr>
     </thead>
       <tbody>
@@ -28,31 +26,29 @@
         <tr>
           <td><a href="/admin/patients/update/{{ pat.pat_id }}">Update Record</a></td>
           <td>{{ pat.pat_id }}</td>
-              <td>{{ pat.cus_id }}</td>
+          <td>{{ pat.cus_id }}</td>
           <td>{{ pat.cus_last_name }}</td>
           <td>{{ pat.pat_name }}</td>
           <td>{{ pat.species }} </td>
-            <td>{{ pat.breed  }}</td>
+          <td>{{ pat.breed  }}</td>
           <td>{{ pat.sex }}</td>
-            <td>{{ pat.date_of_birth }}</td>
-            <td>{{ pat.weight }} </td>
-            <td>{{ pat.chip_num }}</td>
-            <td>{% if pat.neutered_status == 1 -%}
+          <td>{{ pat.date_of_birth }}</td>
+          <td>{{ pat.weight }} </td>
+          <td>{{ pat.chip_num }}</td>
+          <td>{% if pat.neutered_status == 1 -%}
                     Y
                     {% else -%}
                     N
                 {% endif %}</td>
-            <td>{% if pat.has_insurance == 1 -%}
+          <td>{% if pat.has_insurance == 1 -%}
                     Y
                     {% else -%}
                     N
                 {% endif %}</td>
-
         </tr>
       {% endfor %}
     </tbody>
   <tfoot>
-
   </tfoot>
 </table>
 {% endblock content %}
