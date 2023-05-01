@@ -77,9 +77,7 @@
 <thead>
   <tr>
     <th>ID</th>
-    <th>Product ID</th>
     <th>Product Name</th>
-    <th>Customer id</th>
     <th>Quantity Ordered</th>
     <th>Order Date</th>
     <th>Collection Date</th>
@@ -91,9 +89,7 @@
 {% for ord in orders %}
     <tr>
       <td>{{ ord.order_id }}</td>
-      <td>{{ ord.product_id }}</td>
       <td>{{ ord.product.prod_name }}</td>
-      <td>{{ ord.cus_id }}</td>
       <td>{{ (ord.quantity_ordered)  }}</td>
       <td>{{ ord.order_date }}</td>
       <td>{{ ord.collection_date }}</td>

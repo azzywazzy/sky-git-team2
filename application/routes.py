@@ -16,7 +16,7 @@ from application.models.vet_personnel import VetPersonnel
 from application.models.credential import Credential
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import date, timedelta
-from werkzeug.datastructures import MultiDict
+
 
 @app.route('/')
 @app.route('/home')
