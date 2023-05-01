@@ -80,7 +80,6 @@
     <th>Product ID</th>
     <th>Product Name</th>
     <th>Customer id</th>
-    <th>Customer Name</th>
     <th>Quantity Ordered</th>
     <th>Order Date</th>
     <th>Collection Date</th>
@@ -93,9 +92,8 @@
     <tr>
       <td>{{ ord.order_id }}</td>
       <td>{{ ord.product_id }}</td>
-      <td>{{ ord.prod_name }}</td>
+      <td>{{ ord.product.prod_name }}</td>
       <td>{{ ord.cus_id }}</td>
-      <td>{{ ord.cus_last_name }} </td>
       <td>{{ (ord.quantity_ordered)  }}</td>
       <td>{{ ord.order_date }}</td>
       <td>{{ ord.collection_date }}</td>

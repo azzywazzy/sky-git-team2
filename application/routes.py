@@ -175,7 +175,13 @@ def account():
             p.breed = p.breed.capitalize()
             p.sex = p.sex.capitalize()
         orders = OrderHistory.query.filter_by(cus_id=user.cus_id).all()
-        return render_template('account.html', user=user, patients=patients, orders=orders, title='Account')
+        if orders:
+            for row in orders:
+                product = Product.query.filter_by(product_id=row.product_id).first()
+                return render_template('account.html', product=product, user=user, patients=patients, orders=orders, title='Account')
+        else:
+            return render_template('account.html', user=user, patients=patients, orders=orders,
+                                   title='Account')
     else:
         flash("You are not permitted access", 'danger')
         return redirect(url_for('home'))
