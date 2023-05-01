@@ -76,7 +76,6 @@
 <table id="tab_ord" class="table table-striped">
 <thead>
   <tr>
-    <th>Update</th>
     <th>ID</th>
     <th>Product ID</th>
     <th>Product Name</th>
@@ -92,7 +91,6 @@
 <tbody>
 {% for ord in orders %}
     <tr>
-      <td><a href="/admin/orders/update/{{ ord.order_id }}">Update Record</a></td>
       <td>{{ ord.order_id }}</td>
       <td>{{ ord.product_id }}</td>
       <td>{{ ord.prod_name }}</td>
