@@ -58,7 +58,11 @@ def get_admin_patient(pat_id):
     return Patient.query.filter_by(pat_id=pat_id).first()
 
 
-def get_prod_cust(prod_id):
+def get_prod(prod_id):
     product = Product.query.filter_by(product_id=prod_id).first()
+    return product
+
+
+def get_cust(prod_id):
     customer = Customer.query.filter_by(cus_email=current_user.email).first()
-    return product, customer
+    return customer

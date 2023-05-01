@@ -399,24 +399,29 @@ def view_products():
 @app.route("/products/details/<prod_id>", methods=['GET', 'POST'])
 def product_detail(prod_id):
     form = ProductOrderForm()
-    product_info, customer = service.get_prod_cust(prod_id)
-    if form.validate_on_submit():
-        if form.order_quantity.data <= product_info.quantity_available:
-            order = OrderHistory(product_id=product_info.product_id, cus_id=customer.cus_id, quantity_ordered=form.order_quantity.data,
-                                     order_date=date.today(), collected=0, collection_date=date.today() + timedelta(days=5))
-            db.session.add(order)
-            db.session.commit()
-            product_info.quantity_available = product_info.quantity_available - form.order_quantity.data
-            db.session.commit()
-            flash('Order placed! You have been sent an email confirmation', 'success')
-            return redirect(url_for('view_products'))
-        else:
-            flash("We don't have that many in stock - please check the quantity available", 'danger')
-            return render_template('product-details.html', product_info=product_info, form=form,
-                                       title='Product Details')
-    return render_template('product-details.html', product_info=product_info, form=form, title='Product Details')
-
-
+    product_info = service.get_prod(prod_id)
+    if current_user.is_authenticated:
+        customer = service.get_cust(prod_id)
+        if form.validate_on_submit():
+            if form.order_quantity.data <= product_info.quantity_available:
+                order = OrderHistory(product_id=product_info.product_id, cus_id=customer.cus_id, quantity_ordered=form.order_quantity.data,
+                                         order_date=date.today(), collected=0, collection_date=date.today() + timedelta(days=5))
+                db.session.add(order)
+                db.session.commit()
+                product_info.quantity_available = product_info.quantity_available - form.order_quantity.data
+                db.session.commit()
+                flash('Order placed! You have been sent an email confirmation', 'success')
+                return redirect(url_for('view_products'))
+            else:
+                flash("We don't have that many in stock - please check the quantity available", 'danger')
+                return render_template('product-details.html', product_info=product_info, form=form,
+                                           title='Product Details')
+        return render_template('product-details.html', product_info=product_info, form=form,
+                               title='Product Details')
+    else:
+        flash("You need to be registered and logged in to order products", 'danger')
+        return render_template('product-details.html', product_info=product_info, form=form,
+                                   title='Product Details')
 
 
 
