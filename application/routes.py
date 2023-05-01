@@ -408,10 +408,10 @@ def product_detail(prod_id):
             db.session.commit()
             product_info.quantity_available = product_info.quantity_available - form.order_quantity.data
             db.session.commit()
-            flash('ordered placed! you have been emailed confirmation', 'success')
+            flash('Order placed! You have been sent an email confirmation', 'success')
             return redirect(url_for('view_products'))
         else:
-            flash("we don't have that many in stock sorry - please check the quantity available", 'danger')
+            flash("We don't have that many in stock - please check the quantity available", 'danger')
             return render_template('product-details.html', product_info=product_info, form=form,
                                        title='Product Details')
     return render_template('product-details.html', product_info=product_info, form=form, title='Product Details')
