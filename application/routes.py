@@ -98,9 +98,11 @@ def update_password():
         if form.validate_on_submit():
             if bcrypt.check_password_hash(credential.hash_password, form.old_password.data):
                 credential.hash_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
-            db.session.commit()
-            flash('Your password has been updated!', 'success')
-            return redirect(url_for('account'))
+                db.session.commit()
+                flash('Your password has been updated!', 'success')
+                return redirect(url_for('account'))
+            else:
+                flash("Update unsuccessful. Check password", 'danger')
         return render_template('update_password.html', title='Update-password', form=form)
     else:
         flash("You are not permitted access", 'danger')
